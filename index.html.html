@@ -400,6 +400,9 @@ html {
   #about, #skills, #certificates {
   scroll-margin-top: 10vh;
 }
+#resume-section {
+  scroll-margin-top: 15vh;
+}
 
 
 footer {
@@ -471,73 +474,108 @@ footer {
           margin-top: 15px;
       }
   }
-  
+  .scroll-down-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 50%;
+      bottom: 30px;
+      transform: translateX(150px);
+      width: 40px;
+      height: 100px;
+      border: 2px solid rgb(211,3,3);
+      border-radius: 25px;
+      text-decoration: none;
+      animation: glow 2s infinite alternate;
+      z-index: 2;
+    }
+
+    .scroll-down-button span {
+      width: 10px;
+      height: 10px;
+      border-bottom: 2px solid rgb(211,3,3);
+      border-right: 2px solid rgb(211,3,3);
+      transform: rotate(45deg);
+      animation: moveDown 1.5s infinite;
+      margin-bottom: 5px;
+    }
+
+    .scroll-down-button .scroll-text {
+      color: rgb(211,3,3);
+      font-size: 0.7rem;
+      text-align: center;
+      text-shadow: 0 0 5px rgb(211,3,3);
+    }
+
+    @keyframes moveDown {
+      0% { transform: rotate(45deg) translateY(0); opacity: 1; }
+      50% { transform: rotate(45deg) translateY(8px); opacity: 0.5; }
+      100% { transform: rotate(45deg) translateY(0); opacity: 1; }
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 5px rgb(211,3,3); }
+      to { box-shadow: 0 0 15px rgb(211,3,3); }
+    }
     </style>
-  </head>
-  <body>
-    <nav>
-      <div class="nav-container">
-        <div class="logo" data-aos="zoom-in" data-aos-duration="1500">NITHIN KUMAR <span>REDDY</span></div>
-        <div class="links">
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100"><a href="#">Home</a></div>
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
-  <a href="#about">About</a>
-</div>
+</head>
+<body>
 
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
-  <a href="#skills">Skills</a>
-</div>
-
-          <div class="link" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400"><a href="#certificates">Certificates</a></div>
-        </div>
-      </div>
-      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
-      <div class="dropdown">
-        <div class="links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#certificates">Certificates</a>
-          <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
-        </div>
-      </div>
-    </nav>
-    <section>
-      <div class="main-container" id="home">
-        <div class="content">
-         
-          <div data-aos="fade-right" data-aos-duration="1500" data-aos-delay="900" class="typewriter">Hey I'm <span class="typewriter-text"></span><label>|</label></div>
-           <h1 data-aos="fade-left" data-aos-duration="1500" data-aos-delay="700">I am a <span>STUDENT</span></h1>
-          <p data-aos="flip-down" data-aos-duration="1500" data-aos-delay="1100">
-            Passionate B.Tech student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning. Dedicated to exploring data-driven solutions, building intelligent applications, and constantly learning new technologies to shape the future.
-          </p>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1300">
-              <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1400">
-              <i class="fa-solid fa-envelope"></i>
-            </a>
-            <a href="https://www.instagram.com/nithin_kumar_reddy_45/" target="_blank" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1500">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://wa.link/lcowyw" target="_blank" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1600">
-              <i class="fa-brands fa-whatsapp"></i>
-            </a>
-          </div>
-          <div class="btn" data-aos="zoom-out" data-aos-duration="1500" data-aos-delay="1800">
-    <a href="#resume-section">
-      <button>View My Resume</button>
-    </a>
+<nav>
+  <div class="nav-container">
+    <div class="logo" data-aos="zoom-in" data-aos-duration="1500">NITHIN KUMAR <span>REDDY</span></div>
+    <div class="links">
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certificates</a>
+    </div>
   </div>
-  
-  
-        </div>
-        <div class="image" data-aos="zoom-in" data-aos-duration="3000">
-          <img src="https://i.postimg.cc/D0RCLMhJ/nithin-pic.jpg" alt="NITHIN KUMAR REDDY">
-        </div>
+</nav>
+
+<section>
+  <div class="main-container" id="home">
+    <div class="content">
+      <div data-aos="fade-right" data-aos-duration="1500" data-aos-delay="900" class="typewriter">
+        Hey I'm <span class="typewriter-text"></span><label>|</label>
       </div>
-    </section>
+      <h1 data-aos="fade-left" data-aos-duration="1500" data-aos-delay="700">I am a <span>STUDENT</span></h1>
+      <p data-aos="flip-down" data-aos-duration="1500" data-aos-delay="1100">
+        Passionate B.Tech student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning. Dedicated to exploring data-driven solutions, building intelligent applications, and constantly learning new technologies to shape the future.
+      </p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="https://www.instagram.com/nithin_kumar_reddy_45/" target="_blank">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.link/lcowyw" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+      <div class="btn">
+        <a href="#resume-section">
+          <button>View My Resume</button>
+        </a>
+      </div>
+    </div>
+
+    <a href="#" class="scroll-down-button">
+      <span></span>
+      <div class="scroll-text">Scroll Down</div>
+    </a>
+
+    <div class="image" data-aos="zoom-in" data-aos-duration="3000">
+      <img src="https://i.postimg.cc/D0RCLMhJ/nithin-pic.jpg" alt="NITHIN KUMAR REDDY">
+    </div>
+  </div>
+</section>
     
   <section id="resume-section">
   <div class="abstract-background">
