@@ -404,6 +404,93 @@ html {
   scroll-margin-top: 15vh;
 }
 
+.skills-section {
+  padding: 50px;
+  background: #000;
+  color: #fff;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #ff0057;
+  margin-bottom: 30px;
+}
+
+.skills-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.technical-skills, .professional-skills {
+  flex: 1;
+  min-width: 300px;
+  margin: 20px;
+}
+
+h3 {
+  text-align: center;
+  color: #ff0057;
+  margin-bottom: 20px;
+}
+
+.skill {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.skill-name {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.skill-bar {
+  background: #333;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 14px;
+  width: 50%; 
+  margin: auto;
+}
+
+
+.skill-bar-fill {
+  background: linear-gradient(90deg, #ff0057, orange);
+  height: 100%;
+  width: 0;
+  color: black;
+  font-size: 12px;
+  text-align: right;
+  padding-right: 5px;
+  border-radius: 20px;
+  transition: width 2s;
+}
+
+.professional-skills {
+  padding: 30px 0;
+  text-align: center;
+}
+
+.professional-skills h3 {
+  color: rgb(211,3,3);
+  font-size: 1.8rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 8px rgb(211,3,3);
+}
+
+.technical-skills {
+  padding: 30px 0;
+  text-align: center;
+}
+
+.technical-skills h3 {
+  color: rgb(211,3,3);
+  font-size: 1.8rem;
+  margin-bottom: 40px;
+  text-shadow: 0 0 8px rgb(211,3,3);
+}
 
 footer {
   background-color: #000;
@@ -618,24 +705,84 @@ footer {
   </div>
 </section>
 
-<section id="skills" style="background: linear-gradient(135deg, #000000, #1a1a1a, #000000); color: white; padding: 50px 20px; text-align: center;">
-  <div class="skills-container" data-aos="fade-up" data-aos-duration="1500">
-    <h2 style="font-size: 2rem; margin-bottom: 20px; color: rgb(211,3,3); text-shadow: 0 0 10px rgb(211,3,3);">
-      My Skills
-    </h2>
-    <p style="max-width: 800px; margin: auto; font-size: 1rem; line-height: 1.8;">
-      Here are some of the skills I’ve developed:
-    </p>
-    <ul style="list-style: none; padding: 0; margin-top: 20px;">
-      <li style="margin-bottom: 10px;">💻 Programming: C, C++, Java, Python</li>
-      <li style="margin-bottom: 10px;">🌐 Web Development: HTML, CSS, JavaScript</li>
-      <li style="margin-bottom: 10px;">🤖 AI & ML Concepts</li>
-      <li style="margin-bottom: 10px;">📊 Data Structures and Algorithms</li>
-      <li style="margin-bottom: 10px;">🛠 Tools: Git, GitHub</li>
-      <li style="margin-bottom: 10px;">📚 DBMS (Database Management Systems)</li>
-    </ul>
+
+<section id="skills" class="skills-section">
+  <h3 class="section-title">Skills</h3>
+  <div class="skills-container">
+    <!-- Technical Skills -->
+    <div class="technical-skills">
+      <h3>Technical Skills</h3>
+      <div class="skill">
+        <span class="skill-name">C, C++</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="85">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">HTML, CSS, JavaScript</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="80">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">Python</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="90">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">Java</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="85">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">DSA</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="70">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Skills -->
+    <div class="professional-skills">
+      <h3>Professional Skills</h3>
+      <div class="skill">
+        <span class="skill-name">Communication</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="80">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">Teamwork</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="85">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">Creativity</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="75">0%</div>
+        </div>
+      </div>
+      <div class="skill">
+        <span class="skill-name">Leadership</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="90">0%</div>
+        </div>
+        </div>
+        <div class="skill">
+        <span class="skill-name">Problem-Solving</span>
+        <div class="skill-bar">
+          <div class="skill-bar-fill" data-percent="85">0%</div>
+        </div>
+      </div>
   </div>
 </section>
+
+
+
+
 
 
     <section id="certificates">
@@ -716,21 +863,25 @@ footer {
   </div>
 </footer>
 
-
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
+<script>
+  // Initialize AOS animation library
   AOS.init({ offset: 0 });
+  
+  // Mobile menu toggle functions
   function hamburg() {
     document.querySelector(".dropdown").style.display = "block";
     document.querySelector(".hamburg").style.display = "none";
     document.querySelector(".cancel").style.display = "block";
   }
+  
   function cancel() {
     document.querySelector(".dropdown").style.display = "none";
     document.querySelector(".hamburg").style.display = "block";
     document.querySelector(".cancel").style.display = "none";
   }
 
+  // Typewriter effect for hero section
   const textElement = document.querySelector(".typewriter-text");
   const texts = ["NITHIN KUMAR REDDY"];
   let textIndex = 0;
@@ -750,20 +901,94 @@ footer {
     let typeSpeed = isDeleting ? 70 : 120;
 
     if (!isDeleting && charIndex === currentText.length) {
-      typeSpeed = 1000; // pause before deleting
+      typeSpeed = 1000;
       isDeleting = true;
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       textIndex = (textIndex + 1) % texts.length;
-      typeSpeed = 500; // pause before typing next
+      typeSpeed = 500;
     }
 
     setTimeout(type, typeSpeed);
   }
 
-  type();
-</script>
+  // Start typing animation after 1 second
+  setTimeout(type, 1000);
 
+  // Skills animation controller
+  let skillsAnimated = false;
+  const skillsSection = document.querySelector('.skills-section');
+  
+  function animateSkills() {
+    // Animate technical skill bars
+    const bars = document.querySelectorAll('.skill-bar-fill');
+    bars.forEach(bar => {
+      const percent = bar.getAttribute('data-percent');
+      bar.style.width = '0%';
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count < percent) {
+          count++;
+          bar.style.width = count + '%';
+          bar.textContent = count + '%';
+        } else {
+          clearInterval(interval);
+        }
+      }, 20);
+    });
+
+    
+    
+    skillsAnimated = true;
+  }
+
+  // Check if skills section is in view
+  function checkSkillsVisibility() {
+    if (skillsAnimated) return;
+    
+    const sectionTop = skillsSection.getBoundingClientRect().top;
+    const sectionBottom = skillsSection.getBoundingClientRect().bottom;
+    
+    if (sectionTop < window.innerHeight && sectionBottom > 0) {
+      animateSkills();
+    }
+  }
+
+  // Set up scroll and load event listeners
+  window.addEventListener('scroll', checkSkillsVisibility);
+  window.addEventListener('load', checkSkillsVisibility);
+
+  // Professional Skills Circle Animation with Intersection Observer
+  document.addEventListener('DOMContentLoaded', function() {
+    const circles = document.querySelectorAll('.circle-progress');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const circle = entry.target;
+          const percent = parseInt(circle.parentElement.querySelector('.circle-text').textContent);
+          let current = 0;
+          
+          const interval = setInterval(() => {
+            if (current >= percent) {
+              clearInterval(interval);
+            } else {
+              current++;
+              circle.style.strokeDashoffset = `calc(283 - (283 * ${current}) / 100)`;
+              circle.parentElement.querySelector('.circle-text').textContent = `${current}%`;
+            }
+          }, 20);
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.5});
+    
+    circles.forEach(circle => {
+      observer.observe(circle);
+    });
+  });
+</script>
 
 </body>
 </html>
