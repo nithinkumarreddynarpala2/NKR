@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -318,6 +319,7 @@ html {
     background-color: #111;
     color: white;
     padding: 50px 20px;
+    margin-bottom: -100px;
   }
   
   .certificates-container {
@@ -345,7 +347,8 @@ html {
     border-radius: 10px;
     padding: 15px;
     width: 250px;
-    transition: transform 0.3s;
+    transition: transform 0.5s;
+  
   }
   
   .certificate img {
@@ -465,7 +468,7 @@ h3 {
   text-align: right;
   padding-right: 5px;
   border-radius: 20px;
-  transition: width 2s;
+  transition: width 2.5s ease-in-out;
 }
 
 .professional-skills {
@@ -500,6 +503,7 @@ footer {
   border-top: 1px solid rgb(211,3,3);
   position: relative;
   overflow: hidden;
+  padding-top: 40px;
 }
 
 .footer-name {
@@ -867,14 +871,14 @@ footer {
 <script>
   // Initialize AOS animation library
   AOS.init({ offset: 0 });
-  
+
   // Mobile menu toggle functions
   function hamburg() {
     document.querySelector(".dropdown").style.display = "block";
     document.querySelector(".hamburg").style.display = "none";
     document.querySelector(".cancel").style.display = "block";
   }
-  
+
   function cancel() {
     document.querySelector(".dropdown").style.display = "none";
     document.querySelector(".hamburg").style.display = "block";
@@ -916,59 +920,42 @@ footer {
   setTimeout(type, 1000);
 
   // Skills animation controller
-  let skillsAnimated = false;
   const skillsSection = document.querySelector('.skills-section');
-  
-  function animateSkills() {
-    // Animate technical skill bars
-    const bars = document.querySelectorAll('.skill-bar-fill');
-    bars.forEach(bar => {
-      const percent = bar.getAttribute('data-percent');
-      bar.style.width = '0%';
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count < percent) {
-          count++;
-          bar.style.width = count + '%';
-          bar.textContent = count + '%';
-        } else {
-          clearInterval(interval);
-        }
-      }, 20);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const bars = entry.target.querySelectorAll('.skill-bar-fill');
+
+      if (entry.isIntersecting) {
+        bars.forEach(bar => {
+          const percent = bar.getAttribute('data-percent');
+          bar.style.width = percent + '%';
+          bar.textContent = percent + '%';
+        });
+      } else {
+        bars.forEach(bar => {
+          bar.style.width = '0%';
+          bar.textContent = '0%';
+        });
+      }
     });
+  }, {
+    threshold: 0.3
+  });
 
-    
-    
-    skillsAnimated = true;
-  }
-
-  // Check if skills section is in view
-  function checkSkillsVisibility() {
-    if (skillsAnimated) return;
-    
-    const sectionTop = skillsSection.getBoundingClientRect().top;
-    const sectionBottom = skillsSection.getBoundingClientRect().bottom;
-    
-    if (sectionTop < window.innerHeight && sectionBottom > 0) {
-      animateSkills();
-    }
-  }
-
-  // Set up scroll and load event listeners
-  window.addEventListener('scroll', checkSkillsVisibility);
-  window.addEventListener('load', checkSkillsVisibility);
+  observer.observe(skillsSection);
 
   // Professional Skills Circle Animation with Intersection Observer
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const circles = document.querySelectorAll('.circle-progress');
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const circle = entry.target;
           const percent = parseInt(circle.parentElement.querySelector('.circle-text').textContent);
           let current = 0;
-          
+
           const interval = setInterval(() => {
             if (current >= percent) {
               clearInterval(interval);
@@ -978,17 +965,18 @@ footer {
               circle.parentElement.querySelector('.circle-text').textContent = `${current}%`;
             }
           }, 20);
-          
+
           observer.unobserve(entry.target);
         }
       });
-    }, {threshold: 0.5});
-    
+    }, { threshold: 0.5 });
+
     circles.forEach(circle => {
       observer.observe(circle);
     });
   });
 </script>
+
 
 </body>
 </html>
