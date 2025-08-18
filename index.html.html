@@ -318,6 +318,11 @@ html {
     background-color: #111;
     color: white;
     padding: 50px 20px;
+    
+  margin-bottom: 0;
+  background: #111; 
+
+
   }
   
   .certificates-container {
@@ -493,7 +498,7 @@ h3 {
 }
 
 footer {
-  background-color: #000;
+  background-color: #000 !important;
   color: white;
   padding: 30px 15px;
   text-align: center;
@@ -501,6 +506,7 @@ footer {
   position: relative;
   overflow: hidden;
 }
+
 
 .footer-name {
   font-size: 1.8rem;
@@ -599,6 +605,114 @@ footer {
   text-shadow: 0 0 5px rgb(211,3,3);
 }
 
+
+
+#robo-container {
+      transform: scale(0.6); /* make robot smaller */
+    }
+
+    .robot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Head */
+    .head {
+      width: 120px;
+      height: 100px;
+      background: #111;
+      border: 5px solid #ccc;
+      border-radius: 30px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    }
+
+    /* Eyes */
+    .eye {
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #4fc3f7, #0288d1);
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      transition: transform 0.1s ease-out;
+      box-shadow: 0 0 10px #03a9f4;
+    }
+    .eye.left { left: 30px; }
+    .eye.right { right: 30px; }
+
+    /* Smile */
+    .mouth {
+      position: absolute;
+      bottom: 20px;
+      width: 35px;
+      height: 15px;
+      border-bottom: 2px solid #4fc3f7;
+      border-radius: 50%;
+    }
+
+    /* Square Body */
+    .body {
+      margin-top: 10px;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(180deg, #f9fafb, #d1d5db);
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .body-text {
+      font-size: 14px;
+      font-weight: bold;
+      color: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    .arm {
+      width: 20px;
+      height: 80px;
+      background: #ccc;
+      border-radius: 20px;
+      position: absolute;
+      top: 20px;
+      transform-origin: top center;
+      transition: transform 0.2s ease-out;
+    }
+    .arm.left { left: -25px; }
+    .arm.right { right: -25px; }
+
+    .leg {
+      width: 30px;
+      height: 60px;
+      background: #bbb;
+      border-radius: 15px;
+      position: absolute;
+      bottom: -60px;
+    }
+    .leg.left { left: 15px; }
+    .leg.right { right: 15px; }
+
+    footer {
+      background: #1e40af;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    
+    
+    
 @keyframes bounce {
   0%, 100% { transform: translateX(50%) translateY(0); }
   50% { transform: translateX(50%) translateY(8px); }
@@ -634,10 +748,14 @@ footer {
 <section id="home">
   <div class="main-container">
     <div class="content" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300">
+      
+      
+    
       <div data-aos="fade-right" data-aos-duration="1500" data-aos-delay="900" class="typewriter">
         Hey I'm <span class="typewriter-text"></span><label>|</label>
       </div>
       <h1 data-aos="fade-left" data-aos-duration="1500" data-aos-delay="700">I am a <span>STUDENT</span></h1>
+      
       <p data-aos="flip-down" data-aos-duration="1500" data-aos-delay="1100">
         Passionate B.Tech student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning.
       </p>
@@ -648,10 +766,31 @@ footer {
         <a href="https://github.com/nithin4545L" target="_blank"><i class="fa-brands fa-github"></i></a>
         <a href="https://x.com/NithinL45" target="_blank"><i class="fa-brands fa-twitter"></i></a>
       </div>
+      
+      
       <div class="btn" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300">
         <a href="#resume-section"><button>View My Resume</button></a>
       </div>
     </div>
+    
+    
+    <div id="robo-container">
+      <div class="robot">
+        <div class="head" id="head">
+          <div class="eye left" id="eyeLeft"></div>
+          <div class="eye right" id="eyeRight"></div>
+          <div class="mouth"></div>
+        </div>
+        <div class="body">
+          <div class="arm left" id="armLeft"></div>
+          <div class="arm right" id="armRight"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+          <div class="body-text">Hello, I'm Chitti<br>– The Robot😎</div>
+        </div>
+      </div>
+    </div>
+    
     <a href="#" class="scroll-down-button">
       <i class="fa-solid fa-angles-down"></i>
       <div class="scroll-text">Scroll Down</div>
@@ -660,6 +799,7 @@ footer {
       <img src="https://i.postimg.cc/D0RCLMhJ/nithin-pic.jpg" alt="Nithin Kumar Reddy">
     </div>
   </div>
+  
 </section>
 
 <section id="resume-section">
@@ -989,6 +1129,38 @@ footer {
       observer.observe(circle);
     });
   });
+  
+  
+  const head = document.getElementById("head");
+    const eyeLeft = document.getElementById("eyeLeft");
+    const eyeRight = document.getElementById("eyeRight");
+    const armLeft = document.getElementById("armLeft");
+    const armRight = document.getElementById("armRight");
+
+    document.addEventListener("mousemove", (e) => {
+      const { innerWidth, innerHeight } = window;
+      const x = (e.clientX / innerWidth - 0.5) * 80;  
+      const y = (e.clientY / innerHeight - 0.5) * 80;
+
+      head.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+
+      const eyeX = (e.clientX / innerWidth - 0.5) * 35;
+      const eyeY = (e.clientY / innerHeight - 0.5) * 35;
+      eyeLeft.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+      eyeRight.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+
+      const robotCenterX = window.innerWidth / 2;
+      if (e.clientX > robotCenterX) {
+        armRight.style.transform = "rotate(-60deg)";
+        armLeft.style.transform = "rotate(0deg)";
+      } else {
+        armLeft.style.transform = "rotate(60deg)";
+        armRight.style.transform = "rotate(0deg)";
+      }
+    });
+    
+    
+    
 </script>
 
 </body>
