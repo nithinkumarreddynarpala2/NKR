@@ -702,6 +702,60 @@
     font-size: 0.9rem;
     color: #888;
   }
+  /* Footer social icons - red style */
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0 18px;
+  z-index: 2;
+}
+
+.footer-social-links a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;           /* change to 50% for circular icons */
+  background: transparent;
+  border: 1px solid rgba(211,3,3,0.15);
+  transition: transform 0.18s, box-shadow 0.18s, background-color 0.18s, color 0.18s;
+}
+
+/* icon color + sizing */
+.footer-social-links a i {
+  color: rgb(211,3,3);
+  font-size: 1.1rem;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* hover: filled red with dark icon */
+.footer-social-links a:hover {
+  transform: translateY(-4px) scale(1.04);
+  background: rgb(211,3,3);
+  border-color: rgb(211,3,3);
+  box-shadow: 0 6px 18px rgba(211,3,3,0.12);
+}
+.footer-social-links a:hover i {
+  color: #000;
+}
+
+/* Ensure footer icon color wins over other icon rules */
+.footer-social-links a i { color: rgb(211,3,3) !important; }
+
+/* Optional: make icons circular (uncomment if you want) */
+/*
+.footer-social-links a {
+  border-radius: 50%;
+}
+*/
+
 
   /* ---------- ROBOT ---------- */
 
@@ -1229,6 +1283,22 @@
 <footer>
   <div class="footer-container">
     <h3 class="footer-name">NK<span>R😎</span></h3>
+    <!-- Footer social icons -->
+<div class="footer-social-links" aria-label="Footer social links">
+  <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank" title="Email">
+    <i class="fa-solid fa-envelope"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank" title="LinkedIn">
+    <i class="fa-brands fa-linkedin"></i>
+  </a>
+  <a href="https://github.com/nithin4545L" target="_blank" title="GitHub">
+    <i class="fa-brands fa-github"></i>
+  </a>
+  <a href="https://x.com/NithinL45" target="_blank" title="X / Twitter">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+</div>
+
     <p class="footer-quote">"💡 Small steps every day lead to big change."</p>
     <p class="footer-thankyou">Thank you for visiting my portfolio!</p>
     <a href="#home" class="back-to-top">
@@ -1236,7 +1306,9 @@
     </a>
     <p class="footer-copy">© 2025 Nithin Kumar Reddy. All rights reserved.</p>
   </div>
+  
 </footer>
+
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
