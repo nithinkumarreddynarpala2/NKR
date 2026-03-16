@@ -4,916 +4,841 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - NITHIN KUMAR REDDY</title>
+  <meta name="description" content="Portfolio of Nithin Kumar Reddy – B.Tech CSE student specializing in AI/ML. Explore projects, skills, and certificates.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
-  
-  *{
-      padding: 0;
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      box-sizing: border-box;
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+  :root {
+    --accent: rgb(211,3,3);
+    --accent-glow: rgba(211,3,3,0.6);
+    --bg-dark: #000;
+    --bg-card: #111;
+    --bg-card2: #1a1a1a;
+    --text: #fff;
+    --text-dim: #aaa;
   }
 
-  body{
-      width: 100%;
-      min-height: 100vh;
-      background-color: black;
-      overflow-x: hidden;
+  * { padding:0; margin:0; font-family:'Poppins',sans-serif; box-sizing:border-box; }
+
+  html { scroll-behavior:smooth; }
+
+  body {
+    width:100%; min-height:100vh;
+    background-color: var(--bg-dark);
+    overflow-x:hidden;
+    color: var(--text);
+    position:relative;
   }
 
-  html {
-      scroll-behavior: smooth;
+  /* ===== GLOBAL AI/ML FLOATING BACKGROUND ===== */
+  #globalAiBg {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; z-index:0; overflow:hidden;
+    background: linear-gradient(135deg, #0a0015 0%, #0d0025 25%, #05001a 50%, #0a0020 75%, #080018 100%);
+  }
+  #globalAiBg .ai-float-item {
+    position:absolute;
+    opacity:0;
+    animation: aiFloat linear infinite;
+  }
+  @keyframes aiFloat {
+    0%   { transform:translateY(110vh) rotate(0deg) scale(1); opacity:0; }
+    2%   { opacity:0.55; }
+    92%  { opacity:0.55; }
+    100% { transform:translateY(-10vh) rotate(360deg) scale(1.2); opacity:0; }
+  }
+  /* Make all main content sit above the bg */
+  nav, section, footer { position:relative; z-index:1; }
+
+  /* ===== CURSOR TRAIL ===== */
+  .cursor-dot {
+    position:fixed; width:8px; height:8px;
+    background:var(--accent); border-radius:50%;
+    pointer-events:none; z-index:9999;
+    transition: transform 0.1s; mix-blend-mode:screen;
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .cursor-ring {
+    position:fixed; width:32px; height:32px;
+    border:2px solid var(--accent); border-radius:50%;
+    pointer-events:none; z-index:9998;
+    transition: transform 0.18s ease-out, width 0.2s, height 0.2s;
+    mix-blend-mode:screen;
   }
 
-  /* ---------- NAVBAR ---------- */
-
+  /* ===== NAVBAR ===== */
   nav {
-    width: 100%;
-    height: 10vh;
-    position: sticky;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    z-index: 999;
+    width:100%; height:10vh; position:sticky; top:0;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(12px);
+    z-index:999; border-bottom:1px solid rgba(211,3,3,0.1);
+    transition: background 0.3s;
+  }
+  .nav-container { width:100%; height:100%; display:flex; justify-content:space-around; align-items:center; }
+  .logo { color:white; font-size:1.5rem; font-weight:bold; }
+  .logo span { color:var(--accent); text-shadow:0 0 10px var(--accent); }
+
+  .hamburg,.cancel {
+    cursor:pointer; position:absolute; right:15px; top:10px;
+    color:white; display:none; font-size:clamp(2.5rem,0.5rem+5vw,3rem);
   }
 
-  .nav-container{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+  .nav-container .links { display:flex; }
+  .nav-container .links a {
+    font-size:1.1rem; color:white; margin:0 20px;
+    text-decoration:none; font-weight:550;
+    position:relative; transition:color 0.3s;
   }
-  
-  .logo{
-      color: white;
-      font-size: 1.5rem;
-      font-weight: bold;
+  /* Animated underline */
+  .nav-container .links a::after {
+    content:''; position:absolute; bottom:-4px; left:0;
+    width:0; height:2px; background:var(--accent);
+    transition:width 0.35s ease; box-shadow:0 0 8px var(--accent-glow);
   }
-  
-  .logo span{
-      color: rgb(211,3,3);
-      text-shadow: 0 0 10px rgb(211,3,3);
+  .nav-container .links a:hover { color:var(--accent); }
+  .nav-container .links a:hover::after { width:100%; }
+
+  .dropdown {
+    z-index:100; position:absolute; top:0;
+    transform:translateY(-500px); width:100%; height:auto;
+    backdrop-filter:blur(4px) brightness(40%);
+    box-shadow:0 0 20px black; transition:0.2s linear;
   }
-  
-  .hamburg,
-  .cancel{
-      cursor: pointer;
-      position: absolute;
-      right: 15px;
-      top: 10px;
-      color: white;
-      display: none;
-      font-size: clamp(2.5rem, 0.5rem + 5vw, 3rem);
+  .dropdown .links a {
+    display:flex; color:white; text-decoration:none;
+    padding:15px 0; justify-content:center; align-items:center;
+    transition:0.2s linear;
   }
-  
-  .nav-container .links {
-      display: flex;
+  .dropdown .links a:hover { background-color:var(--accent); }
+
+  /* ===== SECTIONS ===== */
+  section { width:100%; padding-top:40px; padding-bottom:40px; }
+
+  /* ===== HERO / HOME ===== */
+  #home {
+    position:relative; overflow:hidden;
+    background: linear-gradient(135deg, #0a0015, #0d0025, #05001a);
   }
-  
-  .nav-container .links a{
-      font-size: 1.2rem;
-      color: white;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: 550;
-      transition: 0.3s linear;
-  }
-  
-  .nav-container .links a:hover{
-      color: rgb(211,3,3);
-      border-bottom: 2px solid rgb(211,3,3);
-  }
-  
-  .dropdown{
-      z-index: 100;
-      position: absolute;
-      top: 0;
-      transform: translateY(-500px);
-      width: 100%;
-      height: auto;
-      backdrop-filter: blur(4px) brightness(40%);
-      box-shadow: 0 0 20px black;
-      transition: 0.2s linear;
-  }
-  
-  .dropdown .links a{
-      display: flex;
-      color: white;
-      text-decoration: none;
-      padding: 15px 0;
-      justify-content: center;
-      align-items: center;
-      transition: 0.2s linear;
-  }
-  
-  .dropdown .links a:hover{
-      background-color: rgb(211,3,3);
+  #roboWorldCanvas {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    z-index:0;
   }
 
-  /* ---------- GENERIC SECTION ---------- */
-
-  section{
-      width: 100%;
-      /* IMPORTANT: no fixed height here */
-      padding-top: 40px;
-      padding-bottom: 40px;
+  .main-container {
+    width:100%; min-height:90vh; display:flex;
+    justify-content:space-evenly; align-items:center;
+    position:relative; z-index:2;
   }
 
-  /* ---------- HOME SECTION ---------- */
+  .main-container .content { color:white; width:40%; min-height:100px; }
 
-  .main-container{
-      width: 100%;
-      min-height: 90vh;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
+  .content h1 { font-size:clamp(0.8rem,1rem+2vw,1.2rem); }
+  .content h1 span { font-weight:700; text-shadow:0 0 10px var(--accent); color:var(--accent); }
+
+  .content .typewriter { font-size:clamp(2rem,2rem+4vw,2rem); font-weight:700; }
+  .typewriter span { color:var(--accent); text-shadow:0 0 10px var(--accent); }
+
+  /* Blinking cursor */
+  .typewriter label {
+    animation: blink 0.7s infinite;
+    color: var(--accent);
   }
-  
-  .main-container .content{
-      color: white;
-      width: 40%;
-      min-height: 100px;
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  .content p { font-size:clamp(0.4rem,0.2rem+9vw,1rem); margin:10px 0; }
+
+  .social-links i {
+    display:inline-flex; justify-content:center; align-items:center;
+    width:3rem; height:3rem; background:transparent;
+    border:0.2rem solid var(--accent); border-radius:50%;
+    color:var(--accent); margin:0 15px; font-size:1.5rem;
+    transition:transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
   }
-  
-  .content h1 {
-      font-size: clamp(0.8rem, 1rem + 2vw, 1.2rem);
-  }
-  
-  .content h1 span{
-      font-weight: 700;
-      text-shadow: 0 0 10px rgb(211,3,3);
-      color: rgb(211,3,3);
-  }
-  
-  .content .typewriter{
-      font-size: clamp(2rem, 2rem + 4vw, 2rem);
-      font-weight: 700;
-  }
-  
-  .typewriter span{
-      color: rgb(211,3,3);
-      text-shadow: 0 0 10px rgb(211,3,3);
-  }
-  
-  .content p{
-      font-size: clamp(0.4rem, 0.2rem + 9vw, 1rem);
-      margin: 10px 0;
-  }
-  
-  .social-links i{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
-    background-color: transparent;
-    border: 0.2rem solid rgb(211,3,3);
-    border-radius: 50%;
-    color: rgb(211,3,3);
-    margin: 0 15px;
-    font-size: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+  .social-links i:hover {
+    transform:scale(1.3) rotate(360deg);
+    box-shadow:0 0 25px var(--accent-glow);
+    background:var(--accent); color:black;
   }
 
-  .social-links i:hover{
-    transform: scale(1.3);
-    box-shadow: 0 0 15px rgb(211,3,3);
-    background-color: rgb(211,3,3);
-    color: black;
+  /* Pulsing CTA button */
+  .content button {
+    width:50%; height:6vh; margin:30px;
+    background:var(--accent); color:white;
+    border:none; outline:none; font-size:120%; font-weight:700;
+    border-radius:5px; cursor:pointer;
+    transition:transform 0.3s, box-shadow 0.3s, color 0.3s, border 0.3s, background 0.3s;
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%,100% { box-shadow:0 0 5px var(--accent-glow); }
+    50% { box-shadow:0 0 30px var(--accent-glow), 0 0 60px rgba(211,3,3,0.2); }
+  }
+  .content button:hover {
+    transform:scale(1.1);
+    color:var(--accent); border:2px solid var(--accent);
+    background:transparent; box-shadow:0 0 40px 5px var(--accent);
+    animation:none;
   }
 
-  .content button{
-    width: 50%;
-    height: 6vh;
-    margin: 30px;
-    background-color: rgb(211,3,3);
-    color: white;
-    border: none;
-    outline: none;
-    font-size: 120%;
-    font-weight: 700;
-    border-radius: 5px;
-    transition: transform 0.2s, box-shadow 0.2s, color 0.2s, border 0.2s, background-color 0.2s;
+  /* Floating profile image */
+  .main-container .image {
+    width:300px; height:300px; border-radius:100%;
+    overflow:hidden; box-shadow:0 0 50px var(--accent);
+    animation: float 4s ease-in-out infinite;
+    transition: box-shadow 0.3s;
   }
-
-  .content button:hover{
-    transform: scale(1.1);
-    color: rgb(211,3,3);
-    border: 2px solid rgb(211,3,3);
-    background-color: transparent;
-    box-shadow: 0 0 40px 5px rgb(211,3,3);
+  .main-container .image img { width:100%; }
+  .main-container .image:hover {
+    box-shadow:0 0 80px var(--accent), 0 0 120px rgba(211,3,3,0.3);
   }
-
-  .main-container .image{
-      width: 300px;
-      height: 300px;
-      border-radius: 100%;
-      overflow: hidden;
-      box-shadow: 0 0 50px rgb(211,3,3);
-  }
-  
-  .main-container .image img{
-      width: 100%;
-  }
-  
-  .main-container .image:hover{
-      animation: animate 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes animate {
-      0%{ scale: 1; }
-      50%{ scale: 1.05; }
-      100%{ scale: 1; }
+  @keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-18px); }
   }
 
   .scroll-down-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 50%;
-    bottom: 30px;
-    transform: translateX(50%);
-    color: rgb(211,3,3);
-    text-decoration: none;
-    font-size: 1.5rem;
-    animation: bounce 2s infinite;
-    z-index: 2;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:absolute; right:50%; bottom:30px; transform:translateX(50%);
+    color:var(--accent); text-decoration:none; font-size:1.5rem;
+    animation:bounce 2s infinite; z-index:2;
   }
-
-  .scroll-down-button i {
-    font-size: 1.8rem;
-  }
-
+  .scroll-down-button i { font-size:1.8rem; }
   .scroll-down-button .scroll-text {
-    color: rgb(211,3,3);
-    font-size: 0.7rem;
-    text-align: center;
-    text-shadow: 0 0 5px rgb(211,3,3);
+    color:var(--accent); font-size:0.7rem; text-align:center;
+    text-shadow:0 0 5px var(--accent);
   }
-
   @keyframes bounce {
-    0%, 100% { transform: translateX(50%) translateY(0); }
-    50% { transform: translateX(50%) translateY(8px); }
+    0%,100% { transform:translateX(50%) translateY(0); }
+    50% { transform:translateX(50%) translateY(8px); }
   }
 
-  /* ---------- RESUME SECTION ---------- */
+  /* ===== SHIMMER HEADING ===== */
+  .shimmer-heading {
+    background: linear-gradient(90deg, var(--accent), #ff6b6b, var(--accent));
+    background-size:200% auto;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer { 0%{background-position:0% center;} 100%{background-position:200% center;} }
 
+  /* ===== RESUME SECTION ===== */
   #resume-section {
-    background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
-    color: white;
-    padding: 50px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(135deg, #0a0015 0%, #0d0025 30%, #05001a 60%, #0a0020 100%);
+    color:white; padding:60px 20px; text-align:center;
+    position:relative; overflow:hidden;
   }
-
-  #resume-section h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: rgb(211,3,3);
-    text-shadow: 0 0 10px rgb(211,3,3);
+  #resumeCanvas {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    z-index:0; pointer-events:none;
   }
+  #resume-section h2 { font-size:2rem; margin-bottom:20px; }
 
   .resume-card {
-    display: inline-block;
-    background: #111;
-    border: 2px solid rgb(211,3,3);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 0 20px rgb(211,3,3);
-    transition: transform 0.3s;
+    display:inline-block; background:rgba(17,17,17,0.9);
+    border:2px solid var(--accent); border-radius:16px;
+    padding:24px; box-shadow:0 0 30px rgba(211,3,3,0.15);
+    transition:transform 0.3s, box-shadow 0.3s;
+    backdrop-filter:blur(10px);
   }
-  
   .resume-card:hover {
-    transform: scale(1.05);
+    transform:scale(1.05) rotate(1deg);
+    box-shadow:0 0 50px var(--accent-glow);
   }
-  
-  .resume-card img {
-    width: 280px;
-    max-width: 90%;
-    border-radius: 6px;
-    margin-bottom: 10px;
+  .resume-card img { width:280px; max-width:90%; border-radius:8px; margin-bottom:10px; }
+
+  .abstract-background { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
+  .abstract-background svg { width:100%; height:100%; }
+  .resume-container { position:relative; z-index:1; }
+  .resume-flex { display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; }
+
+  /* ===== CSS ANIMATED ROBOT ===== */
+  .css-robot {
+    width:180px; height:320px;
+    position:relative;
+    animation: robotFloat 3s ease-in-out infinite;
+  }
+  @keyframes robotFloat {
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-12px); }
+  }
+  /* Head */
+  .robo-head {
+    width:100px; height:80px;
+    background:linear-gradient(180deg,#4a4a5a,#2d2d3d);
+    border-radius:20px 20px 15px 15px;
+    margin:0 auto; position:relative;
+    border:2px solid #666;
+    box-shadow:0 4px 15px rgba(0,0,0,0.5), inset 0 -2px 10px rgba(0,0,0,0.3);
+  }
+  .robo-head::before {
+    content:''; position:absolute; top:5px; left:10px; right:10px; height:15px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.1),transparent);
+    border-radius:15px 15px 0 0;
+  }
+  /* Antenna */
+  .robo-antenna {
+    width:4px; height:20px;
+    background:linear-gradient(180deg,#ff4444,#888);
+    margin:0 auto; border-radius:2px;
+    position:relative;
+  }
+  .robo-antenna::after {
+    content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+    width:12px; height:12px; border-radius:50%;
+    background:radial-gradient(circle,#ff4444,#cc0000);
+    box-shadow:0 0 10px #ff4444, 0 0 20px rgba(255,68,68,0.5);
+    animation: antennaBlink 2s ease-in-out infinite;
+  }
+  @keyframes antennaBlink {
+    0%,100%{box-shadow:0 0 10px #ff4444,0 0 20px rgba(255,68,68,0.5);}
+    50%{box-shadow:0 0 20px #ff4444,0 0 40px rgba(255,68,68,0.8);}
+  }
+  /* Eyes */
+  .robo-eyes { display:flex; justify-content:center; gap:20px; margin-top:18px; }
+  .robo-eye {
+    width:18px; height:18px; border-radius:50%;
+    background:radial-gradient(circle,#00e5ff,#0088cc);
+    box-shadow:0 0 8px #00e5ff, 0 0 15px rgba(0,229,255,0.4);
+    animation: eyeGlow 3s ease-in-out infinite;
+    position:relative;
+  }
+  .robo-eye::after {
+    content:''; position:absolute; top:3px; left:5px;
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,0.7);
+  }
+  @keyframes eyeGlow {
+    0%,90%,100%{transform:scaleY(1);}
+    95%{transform:scaleY(0.1);}
+  }
+  /* Mouth */
+  .robo-mouth {
+    width:30px; height:8px; margin:10px auto 0;
+    border-radius:0 0 10px 10px;
+    background:linear-gradient(90deg,#00e5ff,#0088cc);
+    box-shadow:0 0 6px rgba(0,229,255,0.3);
+    animation: mouthTalk 2s ease-in-out infinite;
+  }
+  @keyframes mouthTalk {
+    0%,100%{width:30px;} 25%{width:20px;} 50%{width:35px;} 75%{width:25px;}
+  }
+  /* Neck */
+  .robo-neck {
+    width:20px; height:12px;
+    background:linear-gradient(180deg,#555,#333);
+    margin:0 auto; border-radius:3px;
+  }
+  /* Body */
+  .robo-body {
+    width:110px; height:100px;
+    background:linear-gradient(180deg,#3d3d4d,#252535);
+    border-radius:12px;
+    margin:0 auto; position:relative;
+    border:2px solid #555;
+    box-shadow:0 5px 20px rgba(0,0,0,0.5);
+    animation: robotBreathe 3s ease-in-out infinite;
+  }
+  @keyframes robotBreathe {
+    0%,100%{transform:scaleX(1);} 50%{transform:scaleX(1.02);}
+  }
+  /* Chest light */
+  .robo-chest {
+    width:30px; height:30px; border-radius:50%;
+    background:radial-gradient(circle,rgba(211,3,3,0.8),rgba(211,3,3,0.2));
+    border:2px solid rgba(211,3,3,0.5);
+    position:absolute; top:20px; left:50%; transform:translateX(-50%);
+    box-shadow:0 0 15px var(--accent-glow);
+    animation: chestPulse 2s ease-in-out infinite;
+  }
+  @keyframes chestPulse {
+    0%,100%{box-shadow:0 0 15px var(--accent-glow);} 50%{box-shadow:0 0 30px var(--accent),0 0 50px var(--accent-glow);}
+  }
+  .robo-chest-text {
+    position:absolute; bottom:12px; width:100%; text-align:center;
+    font-size:8px; color:#aaa; font-weight:600; letter-spacing:1px;
+  }
+  /* Arms */
+  .robo-arm {
+    width:22px; height:80px;
+    background:linear-gradient(180deg,#4a4a5a,#333);
+    border-radius:12px; position:absolute; top:10px;
+    border:1px solid #555;
+  }
+  .robo-arm.left {
+    left:-28px; transform-origin:top center;
+    animation: armWave 2.5s ease-in-out infinite;
+  }
+  .robo-arm.right { right:-28px; }
+  @keyframes armWave {
+    0%,100%{transform:rotate(0deg);} 30%{transform:rotate(-40deg);} 60%{transform:rotate(0deg);}
+  }
+  .robo-hand {
+    width:18px; height:18px; border-radius:50%;
+    background:#555; border:1px solid #666;
+    position:absolute; bottom:-8px; left:50%; transform:translateX(-50%);
+  }
+  /* Legs */
+  .robo-legs { display:flex; justify-content:center; gap:15px; margin-top:5px; }
+  .robo-leg {
+    width:24px; height:55px;
+    background:linear-gradient(180deg,#3d3d4d,#2a2a3a);
+    border-radius:8px 8px 5px 5px;
+    border:1px solid #555;
+    position:relative;
+  }
+  .robo-foot {
+    width:32px; height:12px;
+    background:#444; border-radius:5px;
+    position:absolute; bottom:-5px; left:-4px;
+    border:1px solid #555;
+  }
+  /* Speech bubble */
+  .robo-speech {
+    position:absolute; top:-40px; left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,229,255,0.12); border:1px solid rgba(0,229,255,0.4);
+    border-radius:12px; padding:8px 16px;
+    font-size:12px; color:#00e5ff; white-space:nowrap;
+    animation: speechPop 4s ease-in-out infinite;
+    z-index:5;
+    box-shadow:0 0 15px rgba(0,229,255,0.15);
+  }
+  .robo-speech::after {
+    content:''; position:absolute; bottom:-8px; left:50%; transform:translateX(-50%);
+    border:8px solid transparent; border-top-color:rgba(0,229,255,0.4);
+  }
+  @keyframes speechPop {
+    0%,100%{opacity:1;transform:translateY(0);} 50%{opacity:0.6;transform:translateY(-5px);}
   }
 
-  .abstract-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+  /* ===== ABOUT ===== */
+  #about, #skills, #projects, #certificates { scroll-margin-top:10vh; }
+
+  .about-section {
+    padding:50px 20px; text-align:center; color:white;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    position:relative; overflow:hidden;
+  }
+  .about-section::before {
+    content:''; position:absolute; top:0; left:0;
+    width:100%; height:100%;
+    background: radial-gradient(ellipse at 80% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
+    pointer-events:none; z-index:0;
+  }
+  .about-container p {
+    max-width:800px; margin:auto; font-size:1rem;
+    line-height:1.8; margin-top:10px;
   }
 
-  .abstract-background svg {
-    width: 100%;
-    height: 100%;
+  /* Floating AI Icons */
+  .floating-icons {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events:none; overflow:hidden; z-index:0;
   }
-
-  .resume-container {
-    position: relative;
-    z-index: 1;
+  .floating-icons i {
+    position:absolute; font-size:2rem;
+    animation:floatIcon linear infinite;
+    text-shadow: 0 0 10px currentColor;
   }
-
-  .resume-flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
+  @keyframes floatIcon {
+    0% { transform:translateY(100%) rotate(0deg); opacity:0; }
+    10% { opacity:1; }
+    90% { opacity:1; }
+    100% { transform:translateY(-100vh) rotate(360deg); opacity:0; }
   }
+  .about-container { position:relative; z-index:1; }
+  .about-container p span { color:var(--accent); font-weight:600; }
 
-  .robot-container {
-    margin-top: 50px;
-  }
-
-  .robot-container img {
-    height: 400px;
-    width: auto;
-    border-radius: 12px;
-  }
-
-  /* ---------- ABOUT & SKILLS ---------- */
-
-  #about, #skills, #projects, #certificates {
-    scroll-margin-top: 10vh;
-  }
-
+  /* ===== SKILLS ===== */
   .skills-section {
-    padding: 50px;
-    background: #000;
-    color: #fff;
+    padding:50px;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    color:#fff; position:relative; overflow:hidden;
   }
+  #neural-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:0.6; }
+  .skills-section > * { position:relative; z-index:1; }
+  .section-title { text-align:center; font-size:2rem; margin-bottom:30px; }
+  .skills-container { display:flex; justify-content:space-between; flex-wrap:wrap; }
 
-  .section-title {
-    text-align: center;
-    font-size: 2rem;
-    color: #ff0057;
-    margin-bottom: 30px;
+  .technical-skills, .professional-skills { flex:1; min-width:300px; margin:20px; padding:30px 0; text-align:center; }
+  .technical-skills h3, .professional-skills h3 {
+    color:var(--accent); font-size:1.8rem;
+    margin-bottom:40px; text-shadow:0 0 8px var(--accent);
   }
+  h3 { text-align:center; color:var(--accent); margin-bottom:20px; }
 
-  .skills-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  .skill { margin-bottom:20px; text-align:center; }
+  .skill-name-row {
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-bottom:8px;
   }
-
-  .technical-skills, .professional-skills {
-    flex: 1;
-    min-width: 300px;
-    margin: 20px;
+  .skill-logo {
+    font-size:1.6rem;
+    transition:transform 0.3s, filter 0.3s;
   }
+  /* Brand colors for each logo */
+  .logo-c       { color:#A8B9CC; filter:drop-shadow(0 0 4px rgba(168,185,204,0.5)); }
+  .logo-cpp     { color:#00599C; filter:drop-shadow(0 0 4px rgba(0,89,156,0.5)); }
+  .logo-html    { color:#E34F26; filter:drop-shadow(0 0 4px rgba(227,79,38,0.5)); }
+  .logo-css     { color:#1572B6; filter:drop-shadow(0 0 4px rgba(21,114,182,0.5)); }
+  .logo-js      { color:#F7DF1E; filter:drop-shadow(0 0 4px rgba(247,223,30,0.5)); }
+  .logo-python  { color:#3776AB; filter:drop-shadow(0 0 4px rgba(55,118,171,0.5)); }
+  .logo-java    { color:#ED8B00; filter:drop-shadow(0 0 4px rgba(237,139,0,0.5)); }
+  .logo-dsa     { color:#00BCD4; filter:drop-shadow(0 0 4px rgba(0,188,212,0.5)); }
+  .logo-comm    { color:#4FC3F7; filter:drop-shadow(0 0 4px rgba(79,195,247,0.5)); }
+  .logo-team    { color:#66BB6A; filter:drop-shadow(0 0 4px rgba(102,187,106,0.5)); }
+  .logo-create  { color:#FFCA28; filter:drop-shadow(0 0 4px rgba(255,202,40,0.5)); }
+  .logo-lead    { color:#FFD700; filter:drop-shadow(0 0 4px rgba(255,215,0,0.5)); }
+  .logo-solve   { color:#AB47BC; filter:drop-shadow(0 0 4px rgba(171,71,188,0.5)); }
 
-  h3 {
-    text-align: center;
-    color: #ff0057;
-    margin-bottom: 20px;
+  .skill:hover .skill-logo {
+    transform:scale(1.3) rotate(10deg);
+    filter:brightness(1.4);
   }
-
-  .skill {
-    margin-bottom: 15px;
-    text-align: center;
-  }
-
-  .skill-name {
-    display: block;
-    margin-bottom: 5px;
-    color: #fff;
-  }
-
+  .skill-name { display:block; color:#fff; font-weight:500; }
   .skill-bar {
-    background: #333;
-    border-radius: 20px;
-    overflow: hidden;
-    height: 14px;
-    width: 50%; 
-    margin: auto;
+    background:rgba(255,255,255,0.08); border-radius:20px;
+    overflow:visible; height:18px; width:55%; margin:auto;
+    border:1px solid rgba(255,255,255,0.06);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,0.4);
+    position:relative;
   }
-
   .skill-bar-fill {
-    background: linear-gradient(90deg, #ff0057, orange);
-    height: 100%;
-    width: 0;
-    color: black;
-    font-size: 12px;
-    text-align: right;
-    padding-right: 5px;
-    border-radius: 20px;
-    transition: width 2s;
+    background-size:300% 100%;
+    animation: trafficWave 2.5s ease-in-out infinite;
+    height:100%; width:0; color:#000; font-size:11px; font-weight:700;
+    text-align:right; padding-right:28px; border-radius:20px;
+    transition:width 1.8s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    line-height:18px;
+    overflow:visible;
+  }
+  /* Traffic signal color classes */
+  .bar-red {
+    background:linear-gradient(90deg, #d50000, #ff1744, #ff5252, #ff1744, #d50000);
+    box-shadow:0 0 12px rgba(213,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .bar-yellow {
+    background:linear-gradient(90deg, #f9a825, #fdd835, #ffee58, #fdd835, #f9a825);
+    box-shadow:0 0 12px rgba(249,168,37,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .bar-green {
+    background:linear-gradient(90deg, #00c853, #00e676, #69f0ae, #00e676, #00c853);
+    box-shadow:0 0 12px rgba(0,200,83,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  /* Running man at tip of bar */
+  .skill-bar-fill::before {
+    content:'🏃';
+    position:absolute; right:-14px; top:50%;
+    transform:translateY(-50%) scaleX(-1);
+    font-size:1.4rem;
+    animation: runBounce 0.4s ease-in-out infinite;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,0.5));
+    z-index:2;
+  }
+  @keyframes runBounce {
+    0%,100% { transform:translateY(-50%) scaleX(-1) translateX(0); }
+    25% { transform:translateY(-60%) scaleX(-1) translateX(2px); }
+    50% { transform:translateY(-50%) scaleX(-1) translateX(0); }
+    75% { transform:translateY(-40%) scaleX(-1) translateX(-1px); }
+  }
+  .skill-bar-fill::after {
+    content:''; position:absolute; top:0; left:0;
+    width:100%; height:100%; border-radius:20px;
+    background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+    background-size:200% 100%;
+    animation:barShine 2s ease-in-out infinite;
+  }
+  @keyframes trafficWave {
+    0%{background-position:0% 0;} 50%{background-position:100% 0;} 100%{background-position:0% 0;}
+  }
+  @keyframes barShine {
+    0%{background-position:-200% 0;} 100%{background-position:200% 0;}
   }
 
-  .professional-skills {
-    padding: 30px 0;
-    text-align: center;
+  .skills-gif { display:flex; justify-content:center; align-items:center; margin:20px auto; }
+
+  /* ===== PROJECTS ===== */
+  #projects {
+    padding:60px 20px; color:white;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    position:relative; overflow:hidden;
   }
-
-  .professional-skills h3 {
-    color: rgb(211,3,3);
-    font-size: 1.8rem;
-    margin-bottom: 40px;
-    text-shadow: 0 0 8px rgb(211,3,3);
+  #projectsCanvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .projects-container { position:relative; z-index:1; }
+  .projects-container h2 {
+    font-size:2rem; margin-bottom:30px; text-align:center;
   }
-
-  .technical-skills {
-    padding: 30px 0;
-    text-align: center;
-  }
-
-  .technical-skills h3 {
-    color: rgb(211,3,3);
-    font-size: 1.8rem;
-    margin-bottom: 40px;
-    text-shadow: 0 0 8px rgb(211,3,3);
-  }
-
-  .skills-gif {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
-  }
-
-  /* ---------- PROJECTS SECTION ---------- */
-/* ---------- PROJECTS SECTION ---------- */
-
-#projects {
-  background-color: #111;
-  color: white;
-  padding: 60px 20px;
-}
-
-.projects-container h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: rgb(211,3,3);
-  text-shadow: 0 0 10px rgb(211,3,3);
-  text-align: center;
-}
-
-/* GRID (3 cards desktop, 2 tab, 1 mobile) */
-.projects-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
-  max-width: 1150px;
-  margin: 0 auto;
-}
-
-/* CARD STYLE (same theme as your website) */
-.project-card {
-  background: linear-gradient(180deg, rgba(25,25,25,0.98), #0e0e0e);
-  border-radius: 14px;
-  padding: 25px;
-  border: 1px solid rgba(211,3,3,0.07);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-  transition: 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.project-card:hover {
-  transform: translateY(-7px);
-  border-color: rgba(211,3,3,0.2);
-  box-shadow: 0 12px 40px rgba(211,3,3,0.08);
-}
-
-/* TOP ICON */
-
-.icon-wrap {
-  width: 100%;
-  height: 170px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  overflow: hidden; 
-}
-.icon-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  display: block;
-}
-
-
-/* PROJECT TITLE */
-.project-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 8px;
-  color: rgb(211,3,3);
-  font-weight: 700;
-  text-shadow: 0 0 6px rgba(211,3,3,0.2);
-}
-
-/* DESCRIPTION */
-.project-card p {
-  font-size: 0.95rem;
-  color: #d5d5d5;
-  line-height: 1.5;
-  margin-bottom: 14px;
-}
-
-/* TAGS */
-.project-tags span {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  border-radius: 20px;
-  margin-right: 6px;
-  margin-bottom: 10px;
-  color: rgb(211,3,3);
-  border: 1px solid rgba(211,3,3,0.3);
-  background: rgba(211,3,3,0.08);
-}
-
-/* BUTTON ROW */
-.actions {
-  margin-top: auto;
-  display: flex;
-  gap: 12px;
-}
-
-/* BUTTONS */
-.btn-pill {
-  padding: 10px 16px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: 0.2s;
-}
-
-
-
-/* Dark = Code */
-.btn-code {
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-.btn-pill:hover {
-  transform: translateY(-3px);
-}
-
-/* RESPONSIVE */
-@media (max-width:1000px) {
   .projects-list {
-    grid-template-columns: repeat(2, 1fr);
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:26px; max-width:1150px; margin:0 auto;
   }
-}
-@media (max-width:680px) {
-  .projects-list {
-    grid-template-columns: 1fr;
+
+  .project-card {
+    background:linear-gradient(180deg,rgba(25,25,25,0.98),#0e0e0e);
+    border-radius:14px; padding:25px;
+    border:1px solid rgba(211,3,3,0.07);
+    box-shadow:0 8px 25px rgba(0,0,0,0.7);
+    transition:0.4s ease-in-out;
+    display:flex; flex-direction:column; justify-content:space-between; height:100%;
+    position:relative; overflow:hidden;
   }
-}
+  /* Animated gradient border on hover */
+  .project-card::before {
+    content:''; position:absolute; top:-2px; left:-2px;
+    right:-2px; bottom:-2px; border-radius:16px;
+    background:linear-gradient(45deg,var(--accent),transparent,var(--accent),transparent);
+    background-size:400% 400%;
+    z-index:-1; opacity:0;
+    transition:opacity 0.4s;
+    animation:gradientBorder 3s ease infinite;
+  }
+  @keyframes gradientBorder {
+    0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}
+  }
+  .project-card:hover::before { opacity:1; }
+  .project-card:hover {
+    transform:translateY(-10px) scale(1.02);
+    border-color:rgba(211,3,3,0.3);
+    box-shadow:0 20px 50px rgba(211,3,3,0.15);
+  }
 
+  .icon-wrap {
+    width:100%; height:170px; border-radius:12px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px; overflow:hidden;
+  }
+  .icon-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s; }
+  .project-card:hover .icon-wrap img { transform:scale(1.08); }
 
+  .project-card h3 {
+    font-size:1.25rem; margin-bottom:8px; color:var(--accent);
+    font-weight:700; text-shadow:0 0 6px rgba(211,3,3,0.2);
+  }
+  .project-card p { font-size:0.95rem; color:#d5d5d5; line-height:1.5; margin-bottom:14px; }
 
-  /* ---------- CERTIFICATES SECTION ---------- */
+  .project-tags span {
+    display:inline-block; padding:6px 12px; font-size:0.75rem;
+    border-radius:20px; margin-right:6px; margin-bottom:10px;
+    color:var(--accent); border:1px solid rgba(211,3,3,0.3);
+    background:rgba(211,3,3,0.08);
+    transition:background 0.3s, transform 0.2s;
+  }
+  .project-tags span:hover {
+    background:rgba(211,3,3,0.2); transform:translateY(-2px);
+  }
 
+  .actions { margin-top:auto; display:flex; gap:12px; }
+  .btn-pill {
+    padding:10px 16px; border-radius:12px; text-decoration:none;
+    font-weight:700; font-size:0.9rem;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:0.3s;
+  }
+  .btn-code {
+    background:rgba(255,255,255,0.08); color:white;
+    border:1px solid rgba(255,255,255,0.15);
+  }
+  .btn-pill:hover {
+    transform:translateY(-3px);
+    box-shadow:0 5px 20px rgba(211,3,3,0.2);
+    background:var(--accent); color:#000;
+    border-color:var(--accent);
+  }
+
+  @media(max-width:1000px){ .projects-list{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:680px){ .projects-list{grid-template-columns:1fr;} }
+
+  /* ===== CERTIFICATES ===== */
   #certificates {
-    background-color: #111;
-    color: white;
-    padding: 60px 20px;
+    padding:60px 20px; color:white;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    position:relative; overflow:hidden;
   }
-
-  .certificates-container {
-    max-width: 1200px;
-    margin: auto;
-    text-align: center;
+  #certificates::before {
+    content:''; position:absolute; top:0; left:0; width:100%; height:100%;
+    background: radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+    pointer-events:none; z-index:0;
   }
-
-  .certificates-container h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: rgb(211,3,3);
-  }
-
-  .certificates-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
+  .certificates-container { position:relative; z-index:1; max-width:1200px; margin:auto; text-align:center; }
+  .certificates-container h2 { font-size:2rem; margin-bottom:30px; }
+  .certificates-list { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
 
   .certificate {
-    background: #222;
-    border: 1px solid rgb(211,3,3);
-    border-radius: 10px;
-    padding: 15px;
-    width: 250px;
-    transition: transform 0.3s;
+    background:#222; border:1px solid var(--accent);
+    border-radius:10px; padding:15px; width:250px;
+    transition:transform 0.4s, box-shadow 0.4s;
+    position:relative; overflow:hidden;
   }
-
-  .certificate img {
-    width: 100%;
-    border-radius: 5px;
+  .certificate::after {
+    content:''; position:absolute; top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:conic-gradient(from 0deg, transparent, var(--accent-glow), transparent, transparent);
+    opacity:0; transition:opacity 0.4s;
+    animation:spin 4s linear infinite;
   }
-
-  .certificate h3 {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    color: rgb(211,3,3);
-  }
-
-  .certificate p {
-    font-size: 0.9rem;
-  }
-
+  @keyframes spin { 100%{transform:rotate(360deg);} }
+  .certificate:hover::after { opacity:0.15; }
+  .certificate img { width:100%; border-radius:5px; position:relative; z-index:1; }
+  .certificate h3 { margin-top:10px; font-size:1.1rem; color:var(--accent); position:relative; z-index:1; }
+  .certificate p { font-size:0.9rem; position:relative; z-index:1; }
   .certificate:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgb(211,3,3);
+    transform:scale(1.05) translateY(-5px);
+    box-shadow:0 0 25px var(--accent-glow);
   }
 
-  /* ---------- FOOTER ---------- */
-
+  /* ===== FOOTER ===== */
   footer {
-    background-color: #000;
-    color: white;
-    padding: 30px 15px;
-    text-align: center;
-    border-top: 1px solid rgb(211,3,3);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(rgba(5, 0, 26, 0.9), rgba(0, 0, 0, 0.95)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    color:white; padding:30px 15px;
+    text-align:center; border-top:1px solid rgba(168,85,247,0.4);
+    position:relative; overflow:hidden;
+  }
+  footer::before {
+    content:''; position:absolute; bottom:0; left:0;
+    width:100%; height:1px;
+    background:linear-gradient(90deg, transparent, #06b6d4, #a855f7, transparent);
+    animation:footerLine 3s ease infinite;
+  }
+  @keyframes footerLine {
+    0%,100%{opacity:0.3;} 50%{opacity:1;}
   }
 
   .footer-name {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: white;
-    text-shadow: 0 0 8px rgb(211,3,3);
-    transition: text-shadow 0.3s;
+    font-size:1.8rem; font-weight:bold; margin-bottom:10px;
+    color:white; text-shadow:0 0 8px var(--accent);
+    transition:text-shadow 0.3s;
   }
-
-  .footer-name span {
-    color: rgb(211,3,3);
-    text-shadow: 0 0 10px rgb(211,3,3);
-  }
-
-  .footer-name:hover {
-    text-shadow: 0 0 15px rgb(211,3,3), 0 0 25px rgb(211,3,3);
-  }
+  .footer-name span { color:var(--accent); text-shadow:0 0 10px var(--accent); }
+  .footer-name:hover { text-shadow:0 0 15px var(--accent),0 0 25px var(--accent); }
 
   .footer-quote {
-    font-style: italic;
-    font-size: 1rem;
-    color: #aaa;
-    margin-bottom: 10px;
-    transition: color 0.3s;
+    font-style:italic; font-size:1rem; color:#aaa;
+    margin-bottom:10px; transition:color 0.3s;
   }
-
-  .footer-quote:hover {
-    color: rgb(211,3,3);
-  }
+  .footer-quote:hover { color:var(--accent); }
+  .footer-thankyou { color:#888; margin-bottom:10px; }
 
   .back-to-top {
-    display: inline-block;
-    margin-bottom: 15px;
-    color: rgb(211,3,3);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s, text-shadow 0.3s;
+    display:inline-block; margin-bottom:15px;
+    color:var(--accent); text-decoration:none; font-weight:500;
+    transition:color 0.3s,text-shadow 0.3s,transform 0.3s;
   }
+  .back-to-top i { margin-right:5px; }
+  .back-to-top:hover { color:white; text-shadow:0 0 10px var(--accent); transform:translateY(-3px); }
 
-  .back-to-top i {
-    margin-right: 5px;
+  .footer-copy { font-size:0.9rem; color:#888; }
+
+  .footer-social-links {
+    display:flex; justify-content:center; gap:12px;
+    margin:12px 0 18px; z-index:2;
   }
-
-  .back-to-top:hover {
-    color: white;
-    text-shadow: 0 0 10px rgb(211,3,3);
+  .footer-social-links a {
+    text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    width:46px; height:46px; border-radius:10px;
+    background:transparent; border:1px solid rgba(211,3,3,0.15);
+    transition:transform 0.25s,box-shadow 0.25s,background-color 0.25s;
   }
-
-  .footer-copy {
-    font-size: 0.9rem;
-    color: #888;
+  .footer-social-links a i { color:var(--accent)!important; font-size:1.1rem; width:100%; height:100%; display:inline-flex; align-items:center; justify-content:center; }
+  .footer-social-links a:hover {
+    transform:translateY(-4px) scale(1.04);
+    background:var(--accent); border-color:var(--accent);
+    box-shadow:0 6px 18px rgba(211,3,3,0.2);
   }
-  /* Footer social icons - red style */
-.footer-social-links {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 12px 0 18px;
-  z-index: 2;
-}
+  .footer-social-links a:hover i { color:#000!important; }
 
-.footer-social-links a {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;           /* change to 50% for circular icons */
-  background: transparent;
-  border: 1px solid rgba(211,3,3,0.15);
-  transition: transform 0.18s, box-shadow 0.18s, background-color 0.18s, color 0.18s;
-}
-
-/* icon color + sizing */
-.footer-social-links a i {
-  color: rgb(211,3,3);
-  font-size: 1.1rem;
-  width: 100%;
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* hover: filled red with dark icon */
-.footer-social-links a:hover {
-  transform: translateY(-4px) scale(1.04);
-  background: rgb(211,3,3);
-  border-color: rgb(211,3,3);
-  box-shadow: 0 6px 18px rgba(211,3,3,0.12);
-}
-.footer-social-links a:hover i {
-  color: #000;
-}
-
-/* Ensure footer icon color wins over other icon rules */
-.footer-social-links a i { color: rgb(211,3,3) !important; }
-
-/* Optional: make icons circular (uncomment if you want) */
-/*
-.footer-social-links a {
-  border-radius: 50%;
-}
-*/
-
-
-  /* ---------- ROBOT ---------- */
-
-  #robo-container {
-      transform: scale(0.6);
-  }
-
-  .robot {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-
+  /* ===== ROBOT ===== */
+  #robo-container { transform:scale(0.6); }
+  .robot { display:flex; flex-direction:column; align-items:center; }
   .head {
-      width: 120px;
-      height: 100px;
-      background: #111;
-      border: 5px solid #ccc;
-      border-radius: 30px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    width:120px; height:100px; background:#111;
+    border:5px solid #ccc; border-radius:30px;
+    position:relative; display:flex; justify-content:center; align-items:center;
+    transform-style:preserve-3d; transition:transform 0.1s ease-out;
+    box-shadow:0 6px 15px rgba(0,0,0,0.4);
   }
-
   .eye {
-      width: 20px;
-      height: 20px;
-      background: radial-gradient(circle, #4fc3f7, #0288d1);
-      border-radius: 50%;
-      position: absolute;
-      top: 30px;
-      transition: transform 0.1s ease-out;
-      box-shadow: 0 0 10px #03a9f4;
+    width:20px; height:20px;
+    background:radial-gradient(circle,#4fc3f7,#0288d1);
+    border-radius:50%; position:absolute; top:30px;
+    transition:transform 0.1s ease-out;
+    box-shadow:0 0 10px #03a9f4;
   }
-  .eye.left { left: 30px; }
-  .eye.right { right: 30px; }
-
-  .mouth {
-      position: absolute;
-      bottom: 20px;
-      width: 35px;
-      height: 15px;
-      border-bottom: 2px solid #4fc3f7;
-      border-radius: 50%;
-  }
+  .eye.left { left:30px; } .eye.right { right:30px; }
+  .mouth { position:absolute; bottom:20px; width:35px; height:15px; border-bottom:2px solid #4fc3f7; border-radius:50%; }
 
   .body {
-      margin-top: 10px;
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(180deg, #f9fafb, #d1d5db);
-      border-radius: 15px;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 10px;
+    margin-top:10px; width:120px; height:120px;
+    background:linear-gradient(180deg,#f9fafb,#d1d5db);
+    border-radius:15px; position:relative;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    display:flex; justify-content:center; align-items:center;
+    text-align:center; padding:10px;
   }
-
-  .body-text {
-      font-size: 14px;
-      font-weight: bold;
-      color: #111;
-      font-family: Arial, sans-serif;
-  }
+  .body-text { font-size:14px; font-weight:bold; color:#111; font-family:Arial,sans-serif; }
 
   .arm {
-      width: 20px;
-      height: 80px;
-      background: #ccc;
-      border-radius: 20px;
-      position: absolute;
-      top: 20px;
-      transform-origin: top center;
-      transition: transform 0.2s ease-out;
+    width:20px; height:80px; background:#ccc;
+    border-radius:20px; position:absolute; top:20px;
+    transform-origin:top center; transition:transform 0.2s ease-out;
   }
-  .arm.left { left: -25px; }
-  .arm.right { right: -25px; }
+  .arm.left { left:-25px; } .arm.right { right:-25px; }
 
-  .leg {
-      width: 30px;
-      height: 60px;
-      background: #bbb;
-      border-radius: 15px;
-      position: absolute;
-      bottom: -60px;
+  .leg { width:30px; height:60px; background:#bbb; border-radius:15px; position:absolute; bottom:-60px; }
+  .leg.left { left:15px; } .leg.right { right:15px; }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity:0; transform:translateY(40px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
   }
-  .leg.left { left: 15px; }
-  .leg.right { right: 15px; }
+  .reveal.active { opacity:1; transform:translateY(0); }
 
-  /* ---------- RESPONSIVE ---------- */
-
-  @media (max-width:884px) {
-      nav .logo{
-          position: absolute;
-          top: 16px;
-          left: 15px;
-          font-size: 1.5rem;
-      }
-      .main-container{
-          flex-direction: column-reverse;
-      }
-      .nav-container .links{
-          display: none;
-      }
-      .hamburg, .cancel{
-          display: block;
-      }
-      .main-container .content{
-          width: 80%;
-      }
-      .social-links i{
-          width: 2.5rem;
-          height: 2.5rem;
-          font-size: 1.5rem;
-      }
-      .main-container .image{
-          z-index: -1;
-          width: 50%;
-          height: 60%;
-      }
+  /* Stagger children */
+  .stagger-children .reveal-child {
+    opacity:0; transform:translateY(30px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .stagger-children.active .reveal-child {
+    opacity:1; transform:translateY(0);
   }
 
-  @media (max-width:440px) {
-      .main-container .image{
-          width: 70%;
-          height: 60%;
-      }
-      .main-container .content{
-          width: 80%;
-      }
-      .main-container button{
-          margin-top: 15px;
-      }
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:884px) {
+    nav .logo { position:absolute; top:16px; left:15px; font-size:1.5rem; }
+    .main-container { flex-direction:column-reverse; }
+    .nav-container .links { display:none; }
+    .hamburg,.cancel { display:block; }
+    .main-container .content { width:80%; }
+    .social-links i { width:2.5rem; height:2.5rem; font-size:1.5rem; }
+    .main-container .image { z-index:-1; width:50%; height:60%; }
+    .cursor-dot,.cursor-ring { display:none; }
   }
-
-  /* Mobile: 1 project per row */
-  @media (max-width: 768px) {
-    .project-card {
-      flex: 1 1 100%;
-      max-width: 500px;
-    }
-    
-@keyframes bounce {
-  0%, 100% { transform: translateX(50%) translateY(0); }
-  50% { transform: translateX(50%) translateY(8px); }
-}
-
-    </style>
-    
+  @media(max-width:440px) {
+    .main-container .image { width:70%; height:60%; }
+    .main-container .content { width:80%; }
+    .main-container button { margin-top:15px; }
+  }
+  @media(max-width:768px) {
+    .project-card { flex:1 1 100%; max-width:500px; }
+  }
+  </style>
 </head>
 <body>
+
+<!-- Global AI/ML floating background -->
+<div id="globalAiBg"></div>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
   <div class="nav-container">
@@ -933,40 +858,36 @@
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
       <a href="#certificates">Certificates</a>
     </div>
   </div>
 </nav>
 
 <section id="home">
+  <!-- Robo World Canvas -->
+  <canvas id="roboWorldCanvas"></canvas>
+
   <div class="main-container">
     <div class="content" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300">
-      
-      
-    
       <div data-aos="fade-right" data-aos-duration="1500" data-aos-delay="900" class="typewriter">
         Hey I'm <span class="typewriter-text"></span><label>|</label>
       </div>
       <h1 data-aos="fade-left" data-aos-duration="1500" data-aos-delay="700">I am a <span>STUDENT</span></h1>
-      
       <p data-aos="flip-down" data-aos-duration="1500" data-aos-delay="1100">
         Passionate B.Tech student specializing in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning.
       </p>
       <div class="social-links" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300">
-        
         <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
         <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
         <a href="https://github.com/nithin4545L" target="_blank"><i class="fa-brands fa-github"></i></a>
         <a href="https://x.com/NithinL45" target="_blank"><i class="fa-brands fa-twitter"></i></a>
       </div>
-      
-      
       <div class="btn" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300">
         <a href="#resume-section"><button>View My Resume</button></a>
       </div>
     </div>
-    
-    
+
     <div id="robo-container">
       <div class="robot">
         <div class="head" id="head">
@@ -983,7 +904,7 @@
         </div>
       </div>
     </div>
-    
+
     <a href="#" class="scroll-down-button">
       <i class="fa-solid fa-angles-down"></i>
       <div class="scroll-text">Scroll Down</div>
@@ -992,467 +913,1274 @@
       <img src="https://i.postimg.cc/cJsDC4hz/nithin-profile1.jpg" alt="Nithin Kumar Reddy">
     </div>
   </div>
-  
 </section>
 
 <section id="resume-section">
-  <div class="abstract-background">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path fill="rgb(211,3,3)" fill-opacity="0.2"
-        d="M0,128L48,128C96,128,192,128,288,144C384,160,480,192,576,197.3C672,203,768,181,864,170.7C960,160,1056,160,1152,165.3C1248,171,1344,181,1392,186.7L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
-      </path>
-    </svg>
-  </div>
-  <div class="resume-container" data-aos="fade-up" data-aos-duration="1500">
-    <h2>My Resume</h2>
+  <canvas id="resumeCanvas"></canvas>
+  <div class="resume-container reveal" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="shimmer-heading">My Resume</h2>
     <div class="resume-flex">
-      <div class="robot-container">
-        <img src="https://i.postimg.cc/gjtx6hwd/output-onlinegiftools.gif" alt="Robot">
-      </div>
-      <div class="resume-card">
-  <a href="https://drive.google.com/file/d/1Ng7LRKwEkyrw5jdEzdsKHULtPCKy211-/view?usp=sharing" target="_blank">
-    <img 
-      src="https://i.postimg.cc/hjMcHB2S/Nithin-CV-final-(4)-page-0001.jpg" 
-      alt="My Resume"
-      style="cursor: pointer;"
-    >
-  </a>
 
-  <a href="https://drive.google.com/file/d/1DOvp8bri7tXEfbAj0e7XQJEYS0guKt0P/view?usp=sharing" target="_blank"></a>
-    <p>Click for clear view</p>
-  
-</div>
+      <!-- CSS Animated Robot -->
+      <div class="css-robot" data-aos="fade-right" data-aos-duration="1500">
+        <div class="robo-speech">Check my resume! 👋</div>
+        <div class="robo-antenna"></div>
+        <div class="robo-head">
+          <div class="robo-eyes">
+            <div class="robo-eye"></div>
+            <div class="robo-eye"></div>
+          </div>
+          <div class="robo-mouth"></div>
+        </div>
+        <div class="robo-neck"></div>
+        <div class="robo-body">
+          <div class="robo-chest"></div>
+          <div class="robo-chest-text">AI • ML</div>
+          <div class="robo-arm left"><div class="robo-hand"></div></div>
+          <div class="robo-arm right"><div class="robo-hand"></div></div>
+        </div>
+        <div class="robo-legs">
+          <div class="robo-leg"><div class="robo-foot"></div></div>
+          <div class="robo-leg"><div class="robo-foot"></div></div>
+        </div>
+      </div>
+
+      <div class="resume-card" data-aos="fade-left" data-aos-duration="1500">
+        <a href="https://drive.google.com/file/d/1DOvp8bri7tXEfbAj0e7XQJEYS0guKt0P/view?usp=sharing" target="_blank">
+          <img src="https://i.postimg.cc/cHJ2X6y8/Nithin-Resume-page-0001.jpg" alt="My Resume" style="cursor:pointer;">
+        </a>
+        <p>Click for clear view</p>
+      </div>
     </div>
   </div>
 </section>
 
-  <section id="about" style="background: linear-gradient(135deg, #000000, #1a1a1a, #000000); color: white; padding: 50px 20px; text-align: center;">
-  <div class="about-container" data-aos="fade-up" data-aos-duration="1500">
-    <h2 style="font-size: 2rem; margin-bottom: 20px; color: rgb(211,3,3); text-shadow: 0 0 10px rgb(211,3,3);">
-      About Me
-    </h2>
-    <p style="max-width: 800px; margin: auto; font-size: 1rem; line-height: 1.8;">
-      Hi! I’m <span style="color: rgb(211,3,3); font-weight: 600;">Nithin Kumar Reddy</span>, currently pursuing my B.Tech in Computer Science and Engineering with a specialization in Artificial Intelligence and Machine Learning.
-    </p>
-    <p style="max-width: 800px; margin: auto; font-size: 1rem; line-height: 1.8; margin-top: 10px;">
-      I’m passionate about exploring how technology can solve real‑world problems, especially through AI and data-driven solutions. I enjoy designing intelligent applications, building clean web interfaces, and constantly learning new skills to grow as a developer.
-    </p>
-    <p style="max-width: 800px; margin: auto; font-size: 1rem; line-height: 1.8; margin-top: 10px;">
-      Apart from coding, I love playing cricket, following the latest tech trends, and experimenting with creative design projects.
-    </p>
-    <p style="max-width: 800px; margin: auto; font-size: 1rem; line-height: 1.8; margin-top: 10px;">
-      My goal is to keep learning, collaborate with like‑minded people, and contribute to innovative projects that can make a difference.
-    </p>
+<section id="about" class="about-section">
+  <div class="floating-icons" id="floatingIcons"></div>
+  <div class="about-container reveal" data-aos="fade-up" data-aos-duration="1500">
+    <h2 style="font-size:2rem;margin-bottom:20px;" class="shimmer-heading">About Me</h2>
+    <p>Hi! I'm <span>Nithin Kumar Reddy</span>, currently pursuing my B.Tech in Computer Science and Engineering with a specialization in Artificial Intelligence and Machine Learning.</p>
+    <p>I'm passionate about exploring how technology can solve real‑world problems, especially through AI and data-driven solutions. I enjoy designing intelligent applications, building clean web interfaces, and constantly learning new skills to grow as a developer.</p>
+    <p>Apart from coding, I love playing cricket, following the latest tech trends, and experimenting with creative design projects.</p>
+    <p>My goal is to keep learning, collaborate with like‑minded people, and contribute to innovative projects that can make a difference.</p>
   </div>
 </section>
-
 
 <section id="skills" class="skills-section">
-  <h3 class="section-title">Skills</h3>
+  <canvas id="neural-canvas"></canvas>
+  <h3 class="section-title shimmer-heading">Skills</h3>
   <div class="skills-container">
-    <!-- Technical Skills -->
-    <div class="technical-skills">
+    <div class="technical-skills reveal">
       <h3>Technical Skills</h3>
+
       <div class="skill">
-        <span class="skill-name">C, C++</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="85">0%</div>
+        <div class="skill-name-row">
+          <i class="devicon-c-plain skill-logo logo-c"></i>
+          <i class="devicon-cplusplus-plain skill-logo logo-cpp"></i>
+          <span class="skill-name">C, C++</span>
         </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="85">0%</div></div>
       </div>
+
       <div class="skill">
-        <span class="skill-name">HTML, CSS, JavaScript</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="80">0%</div>
+        <div class="skill-name-row">
+          <i class="devicon-html5-plain skill-logo logo-html"></i>
+          <i class="devicon-css3-plain skill-logo logo-css"></i>
+          <i class="devicon-javascript-plain skill-logo logo-js"></i>
+          <span class="skill-name">HTML, CSS, JavaScript</span>
         </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="80">0%</div></div>
       </div>
+
       <div class="skill">
-        <span class="skill-name">Python</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="90">0%</div>
+        <div class="skill-name-row">
+          <i class="devicon-python-plain skill-logo logo-python"></i>
+          <span class="skill-name">Python</span>
         </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="90">0%</div></div>
       </div>
+
       <div class="skill">
-        <span class="skill-name">Java</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="85">0%</div>
+        <div class="skill-name-row">
+          <i class="devicon-java-plain skill-logo logo-java"></i>
+          <span class="skill-name">Java</span>
         </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="85">0%</div></div>
       </div>
+
       <div class="skill">
-        <span class="skill-name">DSA</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="70">0%</div>
+        <div class="skill-name-row">
+          <i class="fa-solid fa-diagram-project skill-logo logo-dsa"></i>
+          <span class="skill-name">DSA</span>
         </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="80">0%</div></div>
       </div>
     </div>
-    
-    
-    <div class="skills-gif">
-      <img src="https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif" alt="Skills Animation" width="350">
 
-    </div>
+    <div class="skills-gif" style="display:none;"></div>
 
-    <!-- Professional Skills -->
-    <div class="professional-skills">
+    <div class="professional-skills reveal">
       <h3>Professional Skills</h3>
       <div class="skill">
-        <span class="skill-name">Communication</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="80">0%</div>
-        </div>
+        <div class="skill-name-row"><i class="fa-solid fa-comments skill-logo logo-comm"></i><span class="skill-name">Communication</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="80">0%</div></div>
       </div>
       <div class="skill">
-        <span class="skill-name">Teamwork</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="85">0%</div>
-        </div>
+        <div class="skill-name-row"><i class="fa-solid fa-people-group skill-logo logo-team"></i><span class="skill-name">Teamwork</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="85">0%</div></div>
       </div>
       <div class="skill">
-        <span class="skill-name">Creativity</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="75">0%</div>
-        </div>
+        <div class="skill-name-row"><i class="fa-solid fa-lightbulb skill-logo logo-create"></i><span class="skill-name">Creativity</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="90">0%</div></div>
       </div>
       <div class="skill">
-        <span class="skill-name">Leadership</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="90">0%</div>
-        </div>
-        </div>
-        <div class="skill">
-        <span class="skill-name">Problem-Solving</span>
-        <div class="skill-bar">
-          <div class="skill-bar-fill" data-percent="85">0%</div>
-        </div>
+        <div class="skill-name-row"><i class="fa-solid fa-crown skill-logo logo-lead"></i><span class="skill-name">Leadership</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="90">0%</div></div>
       </div>
+      <div class="skill">
+        <div class="skill-name-row"><i class="fa-solid fa-puzzle-piece skill-logo logo-solve"></i><span class="skill-name">Problem-Solving</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-percent="85">0%</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
-
 <section id="projects">
+  <canvas id="projectsCanvas"></canvas>
   <div class="projects-container" data-aos="fade-up" data-aos-duration="1500">
-
-    <h2>My Projects</h2>
-
-    <div class="projects-list">
-
-      <!-- PROJECT 1 -->
-      <div class="project-card" data-aos="fade-up" data-aos-duration="1200">
-        <div class="icon-wrap">
-          <img src="https://i.postimg.cc/rs9Sx55K/image.png" alt="Fake Social-media Accounts Detection">
-        </div>
-
+    <h2 class="shimmer-heading">My Projects</h2>
+    <div class="projects-list stagger-children">
+      <div class="project-card reveal-child" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="0">
+        <div class="icon-wrap"><img src="https://i.postimg.cc/rs9Sx55K/image.png" alt="Fake Social-media Accounts Detection"></div>
         <h3>Fake Social-media Accounts Detection</h3>
-        <p>
-          A machine learning-based system that detects fake or bot social-media accounts using
-          behavioral patterns and profile analysis. Built completely using Python.
-        </p>
+        <p>A machine learning-based system that detects fake or bot social-media accounts using behavioral patterns and profile analysis. Built completely using Python.</p>
+        <div class="project-tags"><span>Python</span><span>ML</span><span>Classification</span></div>
+        <div class="actions"><a href="https://github.com/nithin4545L/Fake-Social-Media-Accounts-Detection" target="_blank" class="btn-pill btn-code"><i class="fa-brands fa-github"></i> Code</a></div>
+      </div>
 
-        <div class="project-tags">
-          <span>Python</span>
-          <span>ML</span>
-          <span>Classification</span>
-        </div>
-
-        <div class="actions">
-          <a href="https://github.com/nithin4545L/Fake-Social-Media-Accounts-Detection"
-             target="_blank" class="btn-pill btn-code">
-            <i class="fa-brands fa-github"></i> Code
-          </a>
-        </div>
-      </div> <!-- end project-card (Project 1) -->
-
-      <!-- PROJECT 2 -->
-      <div class="project-card" data-aos="fade-up" data-aos-duration="1200">
-        <div class="icon-wrap">
-          <img src="https://i.postimg.cc/Wzf1B3vt/image.png" alt="Sign Language Recognition Project">
-        </div>
-
+      <div class="project-card reveal-child" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="150">
+        <div class="icon-wrap"><img src="https://i.postimg.cc/Wzf1B3vt/image.png" alt="Sign Language Recognition Project"></div>
         <h3>Sign Language Recognition Project</h3>
-        <p>
-          A deep-learning project that recognizes hand gestures from images/video frames to
-          translate sign language alphabets into readable text. Built using CNN architecture.
-        </p>
+        <p>A deep-learning project that recognizes hand gestures from images/video frames to translate sign language alphabets into readable text. Built using CNN architecture.</p>
+        <div class="project-tags"><span>Python</span><span>Deep Learning</span><span>CNN</span></div>
+        <div class="actions"><a href="https://github.com/nithin4545L/Sign-Language-Recognition-Project" target="_blank" class="btn-pill btn-code"><i class="fa-brands fa-github"></i> Code</a></div>
+      </div>
 
-        <div class="project-tags">
-          <span>Python</span>
-          <span>Deep Learning</span>
-          <span>CNN</span>
-        </div>
-
-        <div class="actions">
-          <a href="https://github.com/nithin4545L/Sign-Language-Recognition-Project"
-             target="_blank" class="btn-pill btn-code">
-            <i class="fa-brands fa-github"></i> Code
-          </a>
-        </div>
-      </div> <!-- end project-card (Project 2) -->
-
-      <!-- PROJECT 3 -->
-      <div class="project-card" data-aos="fade-up" data-aos-duration="1200">
-        <div class="icon-wrap">
-          <img src="https://i.postimg.cc/KvkGKmFS/image.png" alt="Crop-Yield-Prediction-Project">
-        </div>
-
-        <h3>various Crop Yield Prediction Project</h3>
-        <p>
-          A machine learning model that predicts crop yield based on soil parameters, rainfall,
-          humidity, temperature and fertilizer usage. Helps improve agricultural decision-making.
-        </p>
-
-        <div class="project-tags">
-          <span>Python</span>
-          <span>ML</span>
-          <span>Regression</span>
-        </div>
-
-        <div class="actions">
-          <a href="https://github.com/nithin4545L/Crop-Yield-Prediction-Project"
-             target="_blank" class="btn-pill btn-code">
-            <i class="fa-brands fa-github"></i> Code
-          </a>
-        </div>
-      </div> <!-- end project-card (Project 3) -->
-
-    </div> <!-- end projects-list -->
-  </div> <!-- end projects-container -->
+      <div class="project-card reveal-child" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
+        <div class="icon-wrap"><img src="https://i.postimg.cc/KvkGKmFS/image.png" alt="Crop-Yield-Prediction-Project"></div>
+        <h3>Crop Yield Prediction Project</h3>
+        <p>A machine learning model that predicts crop yield based on soil parameters, rainfall, humidity, temperature and fertilizer usage. Helps improve agricultural decision-making.</p>
+        <div class="project-tags"><span>Python</span><span>ML</span><span>Regression</span></div>
+        <div class="actions"><a href="https://github.com/nithin4545L/Crop-Yield-Prediction-Project" target="_blank" class="btn-pill btn-code"><i class="fa-brands fa-github"></i> Code</a></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-
-
-
-    <section id="certificates">
-      <div class="certificates-container" data-aos="fade-up" data-aos-duration="1500">
-        <h2>My Certificates</h2>
-        <div class="certificates-list">
-          <div class="certificate">
-            <img src="https://i.postimg.cc/C1w38VdY/cipherschools-page-0001.jpg" alt="Machine Learning Certificate">
-            <h3>Machine Learning with Data Science</h3>
-            <p>Issued by | CipherSchools |</p>
-          </div>
-          
-          <div class="certificate">
-            <img src="https://i.postimg.cc/yYDDwMjL/bits-and-bites-certificate-page-0001.jpg" alt=" The Bits and Bytes of Computer Networking Certificate">
-            <h3> The Bits and Bytes of Computer Networking</h3>
-            <p> Authorized by | Google |</p>
-          </div>
-          
-          <div class="certificate">
-            <img src="https://i.postimg.cc/d0mHNvb9/oracle-page-0001.jpg" alt="Oracle Certificate">
-            <h3>Generative Al Professional</h3>
-            <p>Issued by | Oracle University  |</p>
-          </div>
-          
-        <div class="certificate">
-            <img src="https://i.postimg.cc/Dzxy2xNF/network-coursera-certificate-page-0001-1.jpg" alt="Computer Communications Certificate">
-            <h3>Computer Communications</h3>
-            <p>Issued by | coursera  |</p>
+<section id="certificates">
+  <div class="certificates-container" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="shimmer-heading">My Certificates</h2>
+    <div class="certificates-list stagger-children">
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="0">
+        <img src="https://i.postimg.cc/C1w38VdY/cipherschools-page-0001.jpg" alt="Machine Learning Certificate">
+        <h3>Machine Learning with Data Science</h3>
+        <p>Issued by | CipherSchools |</p>
       </div>
-      
-      
-    </section>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="150">
+        <img src="https://i.postimg.cc/yYDDwMjL/bits-and-bites-certificate-page-0001.jpg" alt="The Bits and Bytes of Computer Networking Certificate">
+        <h3>The Bits and Bytes of Computer Networking</h3>
+        <p>Authorized by | Google |</p>
+      </div>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="300">
+        <img src="https://i.postimg.cc/d0mHNvb9/oracle-page-0001.jpg" alt="Oracle Certificate">
+        <h3>Generative AI Professional</h3>
+        <p>Issued by | Oracle University |</p>
+      </div>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="450">
+        <img src="https://i.postimg.cc/Dzxy2xNF/network-coursera-certificate-page-0001-1.jpg" alt="Computer Communications Certificate">
+        <h3>Computer Communications</h3>
+        <p>Issued by | Coursera |</p>
+      </div>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="450">
+        <img src="https://i.postimg.cc/QCTTgxFZ/NPTEL.jpg" alt="NPTEL Certificate">
+        <h3>Introduction to Machine Learning</h3>
+        <p>Issued by | NPTEL |</p>
+      </div>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="450">
+        <img src="https://i.postimg.cc/mrp8ZwJF/internship-bluestock.jpg" alt="internship-bluestock Certificate">
+        <h3>SDE Internship</h3>
+        <p>Issued by | BlueStock |</p>
+      </div>
+      <div class="certificate reveal-child" data-aos="zoom-in" data-aos-delay="450">
+        <img src="https://i.postimg.cc/85hJXkRH/github-cipherschools-page-0001.jpg" alt="git and github Certificate">
+        <h3>Git & Github</h3>
+        <p>Issued by | CipherSchools |</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="footer-container">
     <h3 class="footer-name">NK<span>R😎</span></h3>
-    <!-- Footer social icons -->
-<div class="footer-social-links" aria-label="Footer social links">
-  <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank" title="Email">
-    <i class="fa-solid fa-envelope"></i>
-  </a>
-  <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank" title="LinkedIn">
-    <i class="fa-brands fa-linkedin"></i>
-  </a>
-  <a href="https://github.com/nithin4545L" target="_blank" title="GitHub">
-    <i class="fa-brands fa-github"></i>
-  </a>
-  <a href="https://x.com/NithinL45" target="_blank" title="X / Twitter">
-    <i class="fa-brands fa-x-twitter"></i>
-  </a>
-</div>
-
+    <div class="footer-social-links" aria-label="Footer social links">
+      <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://github.com/nithin4545L" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://x.com/NithinL45" target="_blank" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
     <p class="footer-quote">"💡 Small steps every day lead to big change."</p>
     <p class="footer-thankyou">Thank you for visiting my portfolio!</p>
-    <a href="#home" class="back-to-top">
-      <i class="fa-solid fa-arrow-up"></i> Back to Top
-    </a>
+    <a href="#home" class="back-to-top"><i class="fa-solid fa-arrow-up"></i> Back to Top</a>
     <p class="footer-copy">© 2025 Nithin Kumar Reddy. All rights reserved.</p>
   </div>
-  
 </footer>
-
 
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
-  // Initialize AOS animation library
-  AOS.init({ offset: 0 });
-  
-  // Mobile menu toggle functions
-  function hamburg() {
-    document.querySelector(".dropdown").style.display = "block";
-    document.querySelector(".hamburg").style.display = "none";
-    document.querySelector(".cancel").style.display = "block";
+  AOS.init({ offset:0, once:true });
+
+  // ===== CUSTOM CURSOR =====
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mouseX=0,mouseY=0,ringX=0,ringY=0;
+  document.addEventListener('mousemove',e=>{
+    mouseX=e.clientX; mouseY=e.clientY;
+    dot.style.transform=`translate(${mouseX-4}px,${mouseY-4}px)`;
+  });
+  function animateRing(){
+    ringX+=(mouseX-ringX)*0.15; ringY+=(mouseY-ringY)*0.15;
+    ring.style.transform=`translate(${ringX-16}px,${ringY-16}px)`;
+    requestAnimationFrame(animateRing);
   }
-  
-  function cancel() {
-    document.querySelector(".dropdown").style.display = "none";
-    document.querySelector(".hamburg").style.display = "block";
-    document.querySelector(".cancel").style.display = "none";
+  animateRing();
+
+  // Grow cursor on hoverable elements
+  document.querySelectorAll('a,button,.project-card,.certificate').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(211,3,3,0.5)';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgb(211,3,3)';});
+  });
+
+  // ===== NEURAL COSMOS BACKGROUND =====
+  const rwCanvas = document.getElementById('roboWorldCanvas');
+  const rwCtx = rwCanvas.getContext('2d');
+  function resizeRW() { rwCanvas.width = rwCanvas.parentElement.offsetWidth; rwCanvas.height = rwCanvas.parentElement.offsetHeight; }
+  resizeRW(); window.addEventListener('resize', resizeRW);
+  let rwTime = 0;
+
+  // Vibrant color palette for AI/ML theme
+  const cosmosColors = [
+    '#a855f7', // vivid purple
+    '#06b6d4', // cyan
+    '#ec4899', // magenta/pink
+    '#3b82f6', // electric blue
+    '#10b981', // emerald
+    '#f59e0b', // amber
+    '#8b5cf6', // violet
+    '#14b8a6', // teal
+    '#f43f5e', // rose
+    '#6366f1', // indigo
+  ];
+
+  // --- Animated Gradient Mesh Background ---
+  const gradientOrbs = [];
+  for (let i = 0; i < 5; i++) {
+    gradientOrbs.push({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 0.3 + 0.25,
+      vx: (Math.random() - 0.5) * 0.002,
+      vy: (Math.random() - 0.5) * 0.002,
+      color1: cosmosColors[i * 2],
+      color2: cosmosColors[i * 2 + 1],
+      phase: Math.random() * Math.PI * 2
+    });
   }
 
-  // Typewriter effect for hero section
-  const textElement = document.querySelector(".typewriter-text");
-  const texts = ["NITHIN KUMAR REDDY"];
-  let textIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
+  function drawGradientMesh() {
+    const c = rwCtx;
+    const w = rwCanvas.width, h = rwCanvas.height;
+    // Deep space base
+    c.fillStyle = '#05000d';
+    c.fillRect(0, 0, w, h);
+    // Animated gradient orbs
+    gradientOrbs.forEach(orb => {
+      orb.x += orb.vx; orb.y += orb.vy;
+      if (orb.x < -0.1 || orb.x > 1.1) orb.vx *= -1;
+      if (orb.y < -0.1 || orb.y > 1.1) orb.vy *= -1;
+      const pulse = 0.7 + 0.3 * Math.sin(rwTime * 0.8 + orb.phase);
+      const grad = c.createRadialGradient(
+        orb.x * w, orb.y * h, 0,
+        orb.x * w, orb.y * h, orb.r * h * pulse
+      );
+      grad.addColorStop(0, orb.color1 + '25');
+      grad.addColorStop(0.5, orb.color2 + '12');
+      grad.addColorStop(1, 'transparent');
+      c.fillStyle = grad;
+      c.fillRect(0, 0, w, h);
+    });
+  }
 
-  function type() {
-    const currentText = texts[textIndex];
-    if (isDeleting) {
-      textElement.textContent = currentText.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      textElement.textContent = currentText.substring(0, charIndex + 1);
-      charIndex++;
+  // --- Neural Network Nodes ---
+  const cosmosNodes = [];
+  for (let i = 0; i < 80; i++) {
+    cosmosNodes.push({
+      x: Math.random() * 1600, y: Math.random() * 900,
+      r: Math.random() * 3 + 1.5,
+      vx: (Math.random() - 0.5) * 0.7,
+      vy: (Math.random() - 0.5) * 0.7,
+      color: cosmosColors[Math.floor(Math.random() * cosmosColors.length)],
+      pulse: Math.random() * Math.PI * 2,
+      layer: Math.floor(Math.random() * 3) // 0=back, 1=mid, 2=front
+    });
+  }
+
+  function drawCosmosNetwork() {
+    const c = rwCtx;
+    // Draw connections first (behind nodes)
+    for (let i = 0; i < cosmosNodes.length; i++) {
+      for (let j = i + 1; j < cosmosNodes.length; j++) {
+        const dx = cosmosNodes[i].x - cosmosNodes[j].x;
+        const dy = cosmosNodes[i].y - cosmosNodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 130) {
+          const alpha = 0.12 * (1 - dist / 130);
+          // Rainbow connections based on distance
+          const hue = (rwTime * 20 + dist * 2) % 360;
+          c.beginPath();
+          c.moveTo(cosmosNodes[i].x, cosmosNodes[i].y);
+          c.lineTo(cosmosNodes[j].x, cosmosNodes[j].y);
+          c.strokeStyle = `hsla(${hue}, 80%, 65%, ${alpha})`;
+          c.lineWidth = 0.8;
+          c.stroke();
+          // Traveling data pulse
+          if (dist < 70 && Math.random() < 0.008) {
+            const t = (Math.sin(rwTime * 3) + 1) / 2;
+            const px = cosmosNodes[i].x + (cosmosNodes[j].x - cosmosNodes[i].x) * t;
+            const py = cosmosNodes[i].y + (cosmosNodes[j].y - cosmosNodes[i].y) * t;
+            c.beginPath();
+            c.arc(px, py, 2.5, 0, Math.PI * 2);
+            c.fillStyle = `hsla(${hue}, 90%, 70%, 0.8)`;
+            c.shadowBlur = 10;
+            c.shadowColor = `hsla(${hue}, 90%, 70%, 0.6)`;
+            c.fill();
+            c.shadowBlur = 0;
+          }
+        }
+      }
     }
-
-    let typeSpeed = isDeleting ? 70 : 120;
-
-    if (!isDeleting && charIndex === currentText.length) {
-      typeSpeed = 1000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      textIndex = (textIndex + 1) % texts.length;
-      typeSpeed = 500;
-    }
-
-    setTimeout(type, typeSpeed);
+    // Draw nodes
+    cosmosNodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      n.pulse += 0.03;
+      if (n.x < -20 || n.x > rwCanvas.width + 20) n.vx *= -1;
+      if (n.y < -20 || n.y > rwCanvas.height + 20) n.vy *= -1;
+      const glow = 0.5 + 0.5 * Math.sin(n.pulse);
+      c.save();
+      c.globalAlpha = 0.4 + 0.4 * glow;
+      c.fillStyle = n.color;
+      c.shadowBlur = 15 + glow * 10;
+      c.shadowColor = n.color;
+      c.beginPath();
+      c.arc(n.x, n.y, n.r + glow * 2, 0, Math.PI * 2);
+      c.fill();
+      c.shadowBlur = 0;
+      c.restore();
+    });
   }
 
-  // Start typing animation after 1 second
-  setTimeout(type, 1000);
+  // --- Floating Geometric Shapes ---
+  const geoShapes = [];
+  const shapeTypes = ['triangle', 'diamond', 'hexagon', 'cross', 'ring'];
+  for (let i = 0; i < 15; i++) {
+    geoShapes.push({
+      x: Math.random() * 1600, y: Math.random() * 900,
+      size: Math.random() * 25 + 15,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.02,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      type: shapeTypes[Math.floor(Math.random() * shapeTypes.length)],
+      color: cosmosColors[Math.floor(Math.random() * cosmosColors.length)],
+      alpha: Math.random() * 0.2 + 0.08
+    });
+  }
 
-  // Skills animation controller
-  let skillsAnimated = false;
-  const skillsSection = document.querySelector('.skills-section');
-  
-  function animateSkills() {
-    // Animate technical skill bars
-    const bars = document.querySelectorAll('.skill-bar-fill');
-    bars.forEach(bar => {
-      const percent = bar.getAttribute('data-percent');
-      bar.style.width = '0%';
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count < percent) {
+  function drawGeoShape(s) {
+    const c = rwCtx;
+    c.save();
+    c.globalAlpha = s.alpha;
+    c.translate(s.x, s.y);
+    c.rotate(s.rotation);
+    c.strokeStyle = s.color;
+    c.lineWidth = 1.5;
+    c.shadowBlur = 12;
+    c.shadowColor = s.color;
+    const sz = s.size;
+    c.beginPath();
+    switch (s.type) {
+      case 'triangle':
+        c.moveTo(0, -sz); c.lineTo(-sz * 0.87, sz * 0.5); c.lineTo(sz * 0.87, sz * 0.5); c.closePath();
+        break;
+      case 'diamond':
+        c.moveTo(0, -sz); c.lineTo(sz * 0.6, 0); c.lineTo(0, sz); c.lineTo(-sz * 0.6, 0); c.closePath();
+        break;
+      case 'hexagon':
+        for (let i = 0; i < 6; i++) {
+          const a = (Math.PI / 3) * i - Math.PI / 6;
+          const px = sz * 0.7 * Math.cos(a), py = sz * 0.7 * Math.sin(a);
+          if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+        }
+        c.closePath();
+        break;
+      case 'cross':
+        const t = sz * 0.2;
+        c.moveTo(-t, -sz); c.lineTo(t, -sz); c.lineTo(t, -t); c.lineTo(sz, -t);
+        c.lineTo(sz, t); c.lineTo(t, t); c.lineTo(t, sz); c.lineTo(-t, sz);
+        c.lineTo(-t, t); c.lineTo(-sz, t); c.lineTo(-sz, -t); c.lineTo(-t, -t);
+        c.closePath();
+        break;
+      case 'ring':
+        c.arc(0, 0, sz * 0.7, 0, Math.PI * 2);
+        break;
+    }
+    c.stroke();
+    c.shadowBlur = 0;
+    c.restore();
+  }
+
+  // --- Aurora Waves ---
+  function drawAuroraWaves() {
+    const c = rwCtx;
+    const w = rwCanvas.width, h = rwCanvas.height;
+    c.save();
+    for (let wave = 0; wave < 3; wave++) {
+      c.beginPath();
+      const baseY = h * (0.3 + wave * 0.2);
+      const hue1 = (rwTime * 15 + wave * 120) % 360;
+      const hue2 = (hue1 + 60) % 360;
+      for (let x = 0; x <= w; x += 4) {
+        const y = baseY
+          + Math.sin(x * 0.003 + rwTime * 0.5 + wave) * 40
+          + Math.sin(x * 0.007 + rwTime * 0.3 + wave * 2) * 20
+          + Math.cos(x * 0.005 + rwTime * 0.4) * 15;
+        if (x === 0) c.moveTo(x, y); else c.lineTo(x, y);
+      }
+      c.lineTo(w, h); c.lineTo(0, h); c.closePath();
+      const grad = c.createLinearGradient(0, baseY - 60, 0, baseY + 100);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.3, `hsla(${hue1}, 80%, 55%, 0.04)`);
+      grad.addColorStop(0.6, `hsla(${hue2}, 70%, 50%, 0.06)`);
+      grad.addColorStop(1, 'transparent');
+      c.fillStyle = grad;
+      c.fill();
+    }
+    c.restore();
+  }
+
+  // --- Floating AI Text Labels ---
+  const aiLabels = ['AI', 'ML', 'CNN', 'RNN', 'NLP', 'GAN', 'DNN', 'LSTM', 'GPT', 'CV', 'RL', 'DL', 'TF', 'PyTorch'];
+  const floatingLabels = [];
+  for (let i = 0; i < 12; i++) {
+    floatingLabels.push({
+      x: Math.random() * 1600, y: Math.random() * 900,
+      text: aiLabels[Math.floor(Math.random() * aiLabels.length)],
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.15 + 0.05,
+      color: cosmosColors[Math.floor(Math.random() * cosmosColors.length)],
+      size: Math.random() * 10 + 12
+    });
+  }
+
+  // --- Orbiting Rings ---
+  const orbitRings = [];
+  for (let i = 0; i < 4; i++) {
+    orbitRings.push({
+      cx: Math.random() * 1200 + 200,
+      cy: Math.random() * 600 + 150,
+      rx: Math.random() * 80 + 50,
+      ry: Math.random() * 40 + 20,
+      angle: Math.random() * Math.PI * 2,
+      speed: (Math.random() - 0.5) * 0.015,
+      tilt: Math.random() * 0.5 - 0.25,
+      color: cosmosColors[Math.floor(Math.random() * cosmosColors.length)],
+      alpha: Math.random() * 0.15 + 0.08,
+      dotAngle: Math.random() * Math.PI * 2
+    });
+  }
+
+  function drawOrbitRing(o) {
+    const c = rwCtx;
+    c.save();
+    c.globalAlpha = o.alpha;
+    c.translate(o.cx, o.cy);
+    c.rotate(o.tilt);
+    c.strokeStyle = o.color;
+    c.lineWidth = 1;
+    c.shadowBlur = 8;
+    c.shadowColor = o.color;
+    // Draw ellipse
+    c.beginPath();
+    c.ellipse(0, 0, o.rx, o.ry, 0, 0, Math.PI * 2);
+    c.stroke();
+    // Orbiting dot
+    o.dotAngle += 0.02;
+    const dotX = o.rx * Math.cos(o.dotAngle);
+    const dotY = o.ry * Math.sin(o.dotAngle);
+    c.fillStyle = o.color;
+    c.shadowBlur = 15;
+    c.beginPath();
+    c.arc(dotX, dotY, 4, 0, Math.PI * 2);
+    c.fill();
+    c.shadowBlur = 0;
+    c.restore();
+  }
+
+  // --- Shooting Stars ---
+  const shootingStars = [];
+  function spawnShootingStar() {
+    if (shootingStars.length > 3) return;
+    shootingStars.push({
+      x: Math.random() * rwCanvas.width * 0.5,
+      y: Math.random() * rwCanvas.height * 0.3,
+      vx: Math.random() * 6 + 4,
+      vy: Math.random() * 3 + 2,
+      life: 1,
+      decay: Math.random() * 0.015 + 0.01,
+      color: cosmosColors[Math.floor(Math.random() * cosmosColors.length)]
+    });
+  }
+
+  // --- Hexagonal Grid (subtle) ---
+  function drawCosmosHexGrid() {
+    const c = rwCtx;
+    const size = 50;
+    const h = size * Math.sqrt(3);
+    c.save();
+    const hue = (rwTime * 10) % 360;
+    c.strokeStyle = `hsla(${hue}, 60%, 50%, 0.025)`;
+    c.lineWidth = 0.5;
+    for (let row = -1; row < rwCanvas.height / h + 1; row++) {
+      for (let col = -1; col < rwCanvas.width / (size * 3) + 1; col++) {
+        const x = col * size * 3 + (row % 2) * size * 1.5;
+        const y = row * h * 0.5;
+        c.beginPath();
+        for (let i = 0; i < 6; i++) {
+          const angle = Math.PI / 3 * i + Math.PI / 6;
+          const px = x + size * 0.6 * Math.cos(angle);
+          const py = y + size * 0.6 * Math.sin(angle);
+          if (i === 0) c.moveTo(px, py); else c.lineTo(px, py);
+        }
+        c.closePath(); c.stroke();
+      }
+    }
+    c.restore();
+  }
+
+  // --- DNA Helix ---
+  function drawDNAHelix() {
+    const c = rwCtx;
+    c.save();
+    c.globalAlpha = 0.12;
+    const centerX = rwCanvas.width * 0.85;
+    const startY = 50;
+    const endY = rwCanvas.height - 50;
+    const amp = 40;
+    for (let y = startY; y < endY; y += 8) {
+      const phase = y * 0.03 + rwTime * 1.5;
+      const x1 = centerX + Math.sin(phase) * amp;
+      const x2 = centerX + Math.sin(phase + Math.PI) * amp;
+      const hue1 = (y * 0.5 + rwTime * 30) % 360;
+      const hue2 = (hue1 + 180) % 360;
+      // Strand 1
+      c.fillStyle = `hsla(${hue1}, 80%, 60%, 0.6)`;
+      c.shadowBlur = 6;
+      c.shadowColor = `hsla(${hue1}, 80%, 60%, 0.4)`;
+      c.beginPath(); c.arc(x1, y, 3, 0, Math.PI * 2); c.fill();
+      // Strand 2
+      c.fillStyle = `hsla(${hue2}, 80%, 60%, 0.6)`;
+      c.shadowColor = `hsla(${hue2}, 80%, 60%, 0.4)`;
+      c.beginPath(); c.arc(x2, y, 3, 0, Math.PI * 2); c.fill();
+      // Connecting rungs
+      if (y % 24 === 0) {
+        c.beginPath();
+        c.moveTo(x1, y); c.lineTo(x2, y);
+        c.strokeStyle = `hsla(${hue1}, 60%, 50%, 0.3)`;
+        c.lineWidth = 1;
+        c.stroke();
+      }
+    }
+    c.shadowBlur = 0;
+    c.restore();
+  }
+
+  // ===== MAIN DRAW LOOP =====
+  function drawRoboWorld() {
+    rwTime += 0.016;
+    const c = rwCtx;
+
+    // Gradient Mesh Background
+    drawGradientMesh();
+
+    // Subtle hex grid
+    drawCosmosHexGrid();
+
+    // Aurora waves
+    drawAuroraWaves();
+
+    // DNA Helix
+    drawDNAHelix();
+
+    // Orbit rings
+    orbitRings.forEach(o => { o.angle += o.speed; drawOrbitRing(o); });
+
+    // Geometric shapes
+    geoShapes.forEach(s => {
+      s.x += s.vx; s.y += s.vy; s.rotation += s.rotSpeed;
+      if (s.x < -40 || s.x > rwCanvas.width + 40) s.vx *= -1;
+      if (s.y < -40 || s.y > rwCanvas.height + 40) s.vy *= -1;
+      drawGeoShape(s);
+    });
+
+    // Neural cosmos network
+    drawCosmosNetwork();
+
+    // Floating AI labels
+    c.save();
+    floatingLabels.forEach(l => {
+      l.x += l.vx; l.y += l.vy;
+      if (l.x < -50 || l.x > rwCanvas.width + 50) l.vx *= -1;
+      if (l.y < -30 || l.y > rwCanvas.height + 30) l.vy *= -1;
+      c.globalAlpha = l.alpha;
+      c.font = `bold ${l.size}px 'Poppins', sans-serif`;
+      c.fillStyle = l.color;
+      c.shadowBlur = 8;
+      c.shadowColor = l.color;
+      c.fillText(l.text, l.x, l.y);
+      c.shadowBlur = 0;
+    });
+    c.restore();
+
+    // Shooting stars
+    if (Math.random() < 0.008) spawnShootingStar();
+    c.save();
+    for (let i = shootingStars.length - 1; i >= 0; i--) {
+      const s = shootingStars[i];
+      s.x += s.vx; s.y += s.vy; s.life -= s.decay;
+      if (s.life <= 0) { shootingStars.splice(i, 1); continue; }
+      c.globalAlpha = s.life * 0.7;
+      // Trail
+      const grad = c.createLinearGradient(s.x, s.y, s.x - s.vx * 12, s.y - s.vy * 12);
+      grad.addColorStop(0, s.color);
+      grad.addColorStop(1, 'transparent');
+      c.strokeStyle = grad;
+      c.lineWidth = 2;
+      c.shadowBlur = 10;
+      c.shadowColor = s.color;
+      c.beginPath();
+      c.moveTo(s.x, s.y);
+      c.lineTo(s.x - s.vx * 12, s.y - s.vy * 12);
+      c.stroke();
+      // Head
+      c.fillStyle = '#fff';
+      c.beginPath(); c.arc(s.x, s.y, 2, 0, Math.PI * 2); c.fill();
+      c.shadowBlur = 0;
+    }
+    c.restore();
+
+    // HUD Corner Brackets (colorful)
+    c.save();
+    const w = rwCanvas.width, h = rwCanvas.height;
+    const hue = (rwTime * 20) % 360;
+    c.strokeStyle = `hsla(${hue}, 70%, 60%, 0.2)`;
+    c.lineWidth = 2;
+    const sz = 40;
+    c.beginPath(); c.moveTo(20, 20 + sz); c.lineTo(20, 20); c.lineTo(20 + sz, 20); c.stroke();
+    c.strokeStyle = `hsla(${(hue + 90) % 360}, 70%, 60%, 0.2)`;
+    c.beginPath(); c.moveTo(w - 20 - sz, 20); c.lineTo(w - 20, 20); c.lineTo(w - 20, 20 + sz); c.stroke();
+    c.strokeStyle = `hsla(${(hue + 180) % 360}, 70%, 60%, 0.2)`;
+    c.beginPath(); c.moveTo(20, h - 20 - sz); c.lineTo(20, h - 20); c.lineTo(20 + sz, h - 20); c.stroke();
+    c.strokeStyle = `hsla(${(hue + 270) % 360}, 70%, 60%, 0.2)`;
+    c.beginPath(); c.moveTo(w - 20 - sz, h - 20); c.lineTo(w - 20, h - 20); c.lineTo(w - 20, h - 20 - sz); c.stroke();
+    c.restore();
+
+    // Soft vignette
+    const vgrad = c.createRadialGradient(w / 2, h / 2, h * 0.3, w / 2, h / 2, h * 0.95);
+    vgrad.addColorStop(0, 'transparent');
+    vgrad.addColorStop(1, 'rgba(5,0,13,0.5)');
+    c.fillStyle = vgrad;
+    c.fillRect(0, 0, w, h);
+
+    requestAnimationFrame(drawRoboWorld);
+  }
+  drawRoboWorld();
+
+  // ===== RESUME SECTION CANVAS BACKGROUND =====
+  const resCanvas = document.getElementById('resumeCanvas');
+  const resCtx = resCanvas.getContext('2d');
+  let resTime = 0;
+
+  function resizeResume() {
+    const sect = document.getElementById('resume-section');
+    resCanvas.width = sect.offsetWidth;
+    resCanvas.height = sect.offsetHeight;
+  }
+  resizeResume();
+  window.addEventListener('resize', resizeResume);
+
+  // Resume color palette (complementary to hero but distinct)
+  const resColors = [
+    '#c084fc', // soft purple
+    '#22d3ee', // bright cyan
+    '#f472b6', // soft pink
+    '#60a5fa', // sky blue
+    '#34d399', // mint green
+    '#fbbf24', // golden yellow
+    '#a78bfa', // lavender
+    '#2dd4bf', // aqua
+  ];
+
+  // --- Flowing particles with trails ---
+  const resParticles = [];
+  for (let i = 0; i < 45; i++) {
+    resParticles.push({
+      x: Math.random() * 1600,
+      y: Math.random() * 800,
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
+      r: Math.random() * 2.5 + 1,
+      color: resColors[Math.floor(Math.random() * resColors.length)],
+      trail: [],
+      maxTrail: Math.floor(Math.random() * 8 + 5)
+    });
+  }
+
+  // --- Pulsing dot grid ---
+  function drawResumeGrid() {
+    const c = resCtx;
+    const spacing = 50;
+    const w = resCanvas.width, h = resCanvas.height;
+    c.save();
+    for (let x = spacing; x < w; x += spacing) {
+      for (let y = spacing; y < h; y += spacing) {
+        const dist = Math.sqrt((x - w / 2) ** 2 + (y - h / 2) ** 2);
+        const pulse = 0.3 + 0.3 * Math.sin(resTime * 1.5 + dist * 0.01);
+        const hue = (resTime * 25 + dist * 0.3) % 360;
+        c.fillStyle = `hsla(${hue}, 70%, 60%, ${pulse * 0.12})`;
+        c.beginPath();
+        c.arc(x, y, 1.5 + pulse * 1, 0, Math.PI * 2);
+        c.fill();
+      }
+    }
+    c.restore();
+  }
+
+  // --- Glowing energy paths ---
+  const energyPaths = [];
+  for (let i = 0; i < 6; i++) {
+    const pts = [];
+    let px = Math.random() * 1600, py = Math.random() * 600;
+    for (let j = 0; j < Math.floor(Math.random() * 4 + 4); j++) {
+      pts.push({ x: px, y: py });
+      px += (Math.random() - 0.5) * 250;
+      py += (Math.random() - 0.5) * 200;
+    }
+    energyPaths.push({
+      pts,
+      color: resColors[Math.floor(Math.random() * resColors.length)],
+      alpha: Math.random() * 0.12 + 0.06,
+      pulseOffset: Math.random() * Math.PI * 2
+    });
+  }
+
+  function drawEnergyPaths() {
+    const c = resCtx;
+    energyPaths.forEach(ep => {
+      const pulse = 0.5 + 0.5 * Math.sin(resTime * 1.2 + ep.pulseOffset);
+      c.save();
+      c.globalAlpha = ep.alpha * (0.6 + pulse * 0.4);
+      c.strokeStyle = ep.color;
+      c.lineWidth = 1.5;
+      c.shadowBlur = 10;
+      c.shadowColor = ep.color;
+      c.beginPath();
+      if (ep.pts.length > 2) {
+        c.moveTo(ep.pts[0].x, ep.pts[0].y);
+        for (let i = 1; i < ep.pts.length - 1; i++) {
+          const mx = (ep.pts[i].x + ep.pts[i + 1].x) / 2;
+          const my = (ep.pts[i].y + ep.pts[i + 1].y) / 2;
+          c.quadraticCurveTo(ep.pts[i].x, ep.pts[i].y, mx, my);
+        }
+      }
+      c.stroke();
+      // Glowing nodes at each point
+      ep.pts.forEach(p => {
+        c.beginPath();
+        c.arc(p.x, p.y, 3 + pulse * 2, 0, Math.PI * 2);
+        c.fillStyle = ep.color;
+        c.fill();
+      });
+      c.shadowBlur = 0;
+      c.restore();
+    });
+  }
+
+  // --- Floating sparkles ---
+  const sparkles = [];
+  for (let i = 0; i < 25; i++) {
+    sparkles.push({
+      x: Math.random() * 1600,
+      y: Math.random() * 800,
+      size: Math.random() * 3 + 1,
+      twinkle: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.04 + 0.02,
+      color: resColors[Math.floor(Math.random() * resColors.length)]
+    });
+  }
+
+  // --- Gradient wave at bottom ---
+  function drawResumeWave() {
+    const c = resCtx;
+    const w = resCanvas.width, h = resCanvas.height;
+    c.save();
+    c.beginPath();
+    c.moveTo(0, h);
+    for (let x = 0; x <= w; x += 3) {
+      const y = h - 30 + Math.sin(x * 0.005 + resTime) * 15 + Math.sin(x * 0.01 + resTime * 0.7) * 8;
+      c.lineTo(x, y);
+    }
+    c.lineTo(w, h);
+    c.closePath();
+    const hue = (resTime * 20) % 360;
+    const grad = c.createLinearGradient(0, h - 50, 0, h);
+    grad.addColorStop(0, `hsla(${hue}, 70%, 50%, 0.06)`);
+    grad.addColorStop(1, `hsla(${(hue + 60) % 360}, 60%, 40%, 0.1)`);
+    c.fillStyle = grad;
+    c.fill();
+    c.restore();
+  }
+
+  // --- Main resume draw loop ---
+  function drawResumeBackground() {
+    resTime += 0.016;
+    const c = resCtx;
+    const w = resCanvas.width, h = resCanvas.height;
+
+    // Clear with deep space
+    c.fillStyle = 'rgba(5, 0, 13, 0.92)';
+    c.fillRect(0, 0, w, h);
+
+    // Subtle gradient orbs in background
+    const orbColors = [
+      { x: 0.15, y: 0.3, color: '#a855f7' },
+      { x: 0.8, y: 0.6, color: '#06b6d4' },
+      { x: 0.5, y: 0.2, color: '#ec4899' }
+    ];
+    orbColors.forEach(orb => {
+      const pulse = 0.6 + 0.4 * Math.sin(resTime * 0.5 + orb.x * 10);
+      const grad = c.createRadialGradient(
+        orb.x * w, orb.y * h, 0,
+        orb.x * w, orb.y * h, 180 * pulse
+      );
+      grad.addColorStop(0, orb.color + '18');
+      grad.addColorStop(1, 'transparent');
+      c.fillStyle = grad;
+      c.fillRect(0, 0, w, h);
+    });
+
+    // Dot grid
+    drawResumeGrid();
+
+    // Energy paths
+    drawEnergyPaths();
+
+    // Particles with trails
+    resParticles.forEach((p, i) => {
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > p.maxTrail) p.trail.shift();
+
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+
+      // Draw trail
+      c.save();
+      if (p.trail.length > 1) {
+        c.beginPath();
+        c.moveTo(p.trail[0].x, p.trail[0].y);
+        for (let t = 1; t < p.trail.length; t++) {
+          c.lineTo(p.trail[t].x, p.trail[t].y);
+        }
+        c.strokeStyle = p.color + '30';
+        c.lineWidth = p.r * 0.8;
+        c.stroke();
+      }
+
+      // Draw particle
+      c.fillStyle = p.color;
+      c.shadowBlur = 12;
+      c.shadowColor = p.color;
+      c.globalAlpha = 0.7;
+      c.beginPath();
+      c.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      c.fill();
+      c.shadowBlur = 0;
+
+      // Connect nearby
+      for (let j = i + 1; j < resParticles.length; j++) {
+        const dx = p.x - resParticles[j].x;
+        const dy = p.y - resParticles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 100) {
+          const alpha = 0.08 * (1 - dist / 100);
+          const hue = (resTime * 30 + dist) % 360;
+          c.beginPath();
+          c.moveTo(p.x, p.y);
+          c.lineTo(resParticles[j].x, resParticles[j].y);
+          c.strokeStyle = `hsla(${hue}, 80%, 65%, ${alpha})`;
+          c.lineWidth = 0.6;
+          c.stroke();
+        }
+      }
+      c.restore();
+    });
+
+    // Sparkles
+    c.save();
+    sparkles.forEach(s => {
+      s.twinkle += s.speed;
+      const brightness = 0.2 + 0.8 * Math.abs(Math.sin(s.twinkle));
+      c.globalAlpha = brightness * 0.5;
+      c.fillStyle = s.color;
+      c.shadowBlur = 8;
+      c.shadowColor = s.color;
+      // Draw star shape
+      const sz = s.size * brightness;
+      c.beginPath();
+      c.moveTo(s.x, s.y - sz);
+      c.lineTo(s.x + sz * 0.3, s.y - sz * 0.3);
+      c.lineTo(s.x + sz, s.y);
+      c.lineTo(s.x + sz * 0.3, s.y + sz * 0.3);
+      c.lineTo(s.x, s.y + sz);
+      c.lineTo(s.x - sz * 0.3, s.y + sz * 0.3);
+      c.lineTo(s.x - sz, s.y);
+      c.lineTo(s.x - sz * 0.3, s.y - sz * 0.3);
+      c.closePath();
+      c.fill();
+      c.shadowBlur = 0;
+    });
+    c.restore();
+
+    // Bottom wave
+    drawResumeWave();
+
+    // Soft vignette
+    const vg = c.createRadialGradient(w / 2, h / 2, h * 0.25, w / 2, h / 2, h * 0.9);
+    vg.addColorStop(0, 'transparent');
+    vg.addColorStop(1, 'rgba(5,0,13,0.4)');
+    c.fillStyle = vg;
+    c.fillRect(0, 0, w, h);
+
+    requestAnimationFrame(drawResumeBackground);
+  }
+  drawResumeBackground();
+
+  // ===== MOBILE MENU =====
+  function hamburg(){
+    document.querySelector(".dropdown").style.display="block";
+    document.querySelector(".hamburg").style.display="none";
+    document.querySelector(".cancel").style.display="block";
+  }
+  function cancel(){
+    document.querySelector(".dropdown").style.display="none";
+    document.querySelector(".hamburg").style.display="block";
+    document.querySelector(".cancel").style.display="none";
+  }
+
+  // ===== TYPEWRITER =====
+  const textElement=document.querySelector(".typewriter-text");
+  const texts=["NITHIN KUMAR REDDY"];
+  let textIndex=0,charIndex=0,isDeleting=false;
+  function type(){
+    const currentText=texts[textIndex];
+    if(isDeleting){textElement.textContent=currentText.substring(0,charIndex-1);charIndex--;}
+    else{textElement.textContent=currentText.substring(0,charIndex+1);charIndex++;}
+    let typeSpeed=isDeleting?70:120;
+    if(!isDeleting&&charIndex===currentText.length){typeSpeed=1000;isDeleting=true;}
+    else if(isDeleting&&charIndex===0){isDeleting=false;textIndex=(textIndex+1)%texts.length;typeSpeed=500;}
+    setTimeout(type,typeSpeed);
+  }
+  setTimeout(type,1000);
+
+  // ===== SKILLS ANIMATION =====
+  let skillsAnimated=false;
+  const skillsSection=document.querySelector('.skills-section');
+
+  function getTrafficClass(percent) {
+    if (percent <= 50) return 'bar-red';
+    if (percent <= 75) return 'bar-yellow';
+    return 'bar-green';
+  }
+
+  function animateSkills(){
+    const bars=document.querySelectorAll('.skill-bar-fill');
+    bars.forEach(bar=>{
+      const percent = parseInt(bar.getAttribute('data-percent'));
+      // Add traffic signal color class
+      bar.classList.add(getTrafficClass(percent));
+      bar.style.width='0%'; let count=0;
+      const interval=setInterval(()=>{
+        if(count < percent){
           count++;
           bar.style.width = count + '%';
           bar.textContent = count + '%';
+          // Dynamically change color as it passes thresholds
+          bar.classList.remove('bar-red','bar-yellow','bar-green');
+          bar.classList.add(getTrafficClass(count));
         } else {
           clearInterval(interval);
         }
-      }, 20);
+      },20);
     });
-
-    
-    
-    skillsAnimated = true;
+    skillsAnimated=true;
   }
-
-  // Check if skills section is in view
-  function checkSkillsVisibility() {
-    if (skillsAnimated) return;
-    
-    const sectionTop = skillsSection.getBoundingClientRect().top;
-    const sectionBottom = skillsSection.getBoundingClientRect().bottom;
-    
-    if (sectionTop < window.innerHeight && sectionBottom > 0) {
-      animateSkills();
-    }
+  function checkSkillsVisibility(){
+    if(skillsAnimated)return;
+    const top=skillsSection.getBoundingClientRect().top;
+    const bottom=skillsSection.getBoundingClientRect().bottom;
+    if(top<window.innerHeight&&bottom>0)animateSkills();
   }
+  window.addEventListener('scroll',checkSkillsVisibility);
+  window.addEventListener('load',checkSkillsVisibility);
 
-  // Set up scroll and load event listeners
-  window.addEventListener('scroll', checkSkillsVisibility);
-  window.addEventListener('load', checkSkillsVisibility);
-
-  // Professional Skills Circle Animation with Intersection Observer
-  document.addEventListener('DOMContentLoaded', function() {
-    const circles = document.querySelectorAll('.circle-progress');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const circle = entry.target;
-          const percent = parseInt(circle.parentElement.querySelector('.circle-text').textContent);
-          let current = 0;
-          
-          const interval = setInterval(() => {
-            if (current >= percent) {
-              clearInterval(interval);
-            } else {
-              current++;
-              circle.style.strokeDashoffset = `calc(283 - (283 * ${current}) / 100)`;
-              circle.parentElement.querySelector('.circle-text').textContent = `${current}%`;
-            }
-          }, 20);
-          
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {threshold: 0.5});
-    
-    circles.forEach(circle => {
-      observer.observe(circle);
+  // ===== SCROLL REVEAL =====
+  function revealOnScroll(){
+    document.querySelectorAll('.reveal').forEach(el=>{
+      const top=el.getBoundingClientRect().top;
+      if(top<window.innerHeight-60)el.classList.add('active');
     });
-  });
-  
-  
-  const head = document.getElementById("head");
-    const eyeLeft = document.getElementById("eyeLeft");
-    const eyeRight = document.getElementById("eyeRight");
-    const armLeft = document.getElementById("armLeft");
-    const armRight = document.getElementById("armRight");
-
-    document.addEventListener("mousemove", (e) => {
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 80;  
-      const y = (e.clientY / innerHeight - 0.5) * 80;
-
-      head.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-
-      const eyeX = (e.clientX / innerWidth - 0.5) * 35;
-      const eyeY = (e.clientY / innerHeight - 0.5) * 35;
-      eyeLeft.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
-      eyeRight.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
-
-      const robotCenterX = window.innerWidth / 2;
-      if (e.clientX > robotCenterX) {
-        armRight.style.transform = "rotate(-60deg)";
-        armLeft.style.transform = "rotate(0deg)";
-      } else {
-        armLeft.style.transform = "rotate(60deg)";
-        armRight.style.transform = "rotate(0deg)";
+    document.querySelectorAll('.stagger-children').forEach(container=>{
+      const top=container.getBoundingClientRect().top;
+      if(top<window.innerHeight-60){
+        container.classList.add('active');
+        container.querySelectorAll('.reveal-child').forEach((child,i)=>{
+          child.style.transitionDelay=`${i*0.15}s`;
+        });
       }
     });
-    
-    
-    
-</script>
+  }
+  window.addEventListener('scroll',revealOnScroll);
+  window.addEventListener('load',revealOnScroll);
 
+  // ===== ROBOT EYES =====
+  const head=document.getElementById("head");
+  const eyeLeft=document.getElementById("eyeLeft");
+  const eyeRight=document.getElementById("eyeRight");
+  const armLeft=document.getElementById("armLeft");
+  const armRight=document.getElementById("armRight");
+  document.addEventListener("mousemove",(e)=>{
+    const{innerWidth,innerHeight}=window;
+    const x=(e.clientX/innerWidth-0.5)*80;
+    const y=(e.clientY/innerHeight-0.5)*80;
+    head.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
+    const eyeX=(e.clientX/innerWidth-0.5)*35;
+    const eyeY=(e.clientY/innerHeight-0.5)*35;
+    eyeLeft.style.transform=`translate(${eyeX}px,${eyeY}px)`;
+    eyeRight.style.transform=`translate(${eyeX}px,${eyeY}px)`;
+    const robotCenterX=window.innerWidth/2;
+    if(e.clientX>robotCenterX){armRight.style.transform="rotate(-60deg)";armLeft.style.transform="rotate(0deg)";}
+    else{armLeft.style.transform="rotate(60deg)";armRight.style.transform="rotate(0deg)";}
+  });
+
+  // ===== NAV ACTIVE HIGHLIGHT =====
+  const sections=document.querySelectorAll('section[id]');
+  window.addEventListener('scroll',()=>{
+    const scrollY=window.scrollY;
+    sections.forEach(sec=>{
+      const top=sec.offsetTop-100, height=sec.offsetHeight, id=sec.getAttribute('id');
+      const link=document.querySelector(`.nav-container .links a[href="#${id}"]`);
+      if(link){
+        if(scrollY>=top&&scrollY<top+height){link.style.color='rgb(211,3,3)';}
+        else{link.style.color='white';}
+      }
+    });
+  });
+
+  // ===== NEURAL NETWORK BACKGROUND (Skills Section) =====
+  const neuralCanvas = document.getElementById('neural-canvas');
+  const nCtx = neuralCanvas.getContext('2d');
+  let neuralNodes = [];
+  function resizeNeural() {
+    const sect = document.querySelector('.skills-section');
+    neuralCanvas.width = sect.offsetWidth;
+    neuralCanvas.height = sect.offsetHeight;
+  }
+  resizeNeural();
+  window.addEventListener('resize', resizeNeural);
+
+  class NeuralNode {
+    constructor() {
+      this.x = Math.random() * neuralCanvas.width;
+      this.y = Math.random() * neuralCanvas.height;
+      this.radius = Math.random() * 3 + 1.5;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.pulsePhase = Math.random() * Math.PI * 2;
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      this.pulsePhase += 0.02;
+      if (this.x < 0 || this.x > neuralCanvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > neuralCanvas.height) this.vy *= -1;
+    }
+    draw() {
+      const pulse = 0.4 + 0.3 * Math.sin(this.pulsePhase);
+      nCtx.beginPath();
+      nCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      nCtx.fillStyle = `rgba(6, 182, 212, ${pulse})`; // cyan
+      nCtx.shadowBlur = 8; nCtx.shadowColor = 'rgba(6, 182, 212, 0.4)';
+      nCtx.fill();
+      nCtx.shadowBlur = 0;
+    }
+  }
+  for (let i = 0; i < 60; i++) neuralNodes.push(new NeuralNode());
+
+  function drawNeural() {
+    nCtx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+    // Connections (neural synapses)
+    for (let i = 0; i < neuralNodes.length; i++) {
+      for (let j = i + 1; j < neuralNodes.length; j++) {
+        const dx = neuralNodes[i].x - neuralNodes[j].x;
+        const dy = neuralNodes[i].y - neuralNodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          const alpha = 0.08 * (1 - dist / 150);
+          nCtx.beginPath();
+          nCtx.moveTo(neuralNodes[i].x, neuralNodes[i].y);
+          nCtx.lineTo(neuralNodes[j].x, neuralNodes[j].y);
+          nCtx.strokeStyle = `rgba(168, 85, 247, ${alpha})`; // purple
+          nCtx.lineWidth = 0.8;
+          nCtx.stroke();
+          // Draw data pulse traveling along some connections
+          if (dist < 80 && Math.random() < 0.003) {
+            const mx = (neuralNodes[i].x + neuralNodes[j].x) / 2;
+            const my = (neuralNodes[i].y + neuralNodes[j].y) / 2;
+            nCtx.beginPath();
+            nCtx.arc(mx, my, 2, 0, Math.PI * 2);
+            nCtx.fillStyle = 'rgba(236, 72, 153, 0.8)'; // pink
+            nCtx.fill();
+          }
+        }
+      }
+    }
+    neuralNodes.forEach(n => { n.update(); n.draw(); });
+    requestAnimationFrame(drawNeural);
+  }
+  drawNeural();
+
+  // ===== PROJECTS DATA STREAM BACKGROUND =====
+  const projCanvas = document.getElementById('projectsCanvas');
+  const pCtx = projCanvas.getContext('2d');
+  function resizeProj() {
+    const sect = document.getElementById('projects');
+    projCanvas.width = sect.offsetWidth;
+    projCanvas.height = sect.offsetHeight;
+  }
+  resizeProj();
+  window.addEventListener('resize', resizeProj);
+
+  const dataStreams = [];
+  for (let i = 0; i < 40; i++) {
+    dataStreams.push({
+      x: Math.random() * 1600,
+      y: Math.random() * -800,
+      speed: Math.random() * 3 + 1.5,
+      length: Math.random() * 100 + 40,
+      color: ['#06b6d4', '#a855f7', '#ec4899'][Math.floor(Math.random() * 3)],
+      alpha: Math.random() * 0.4 + 0.1
+    });
+  }
+
+  function drawProjectsBackground() {
+    pCtx.clearRect(0, 0, projCanvas.width, projCanvas.height);
+    dataStreams.forEach(s => {
+      s.y += s.speed;
+      if (s.y > projCanvas.height) {
+        s.y = -s.length;
+        s.x = Math.random() * projCanvas.width;
+      }
+      pCtx.beginPath();
+      const grad = pCtx.createLinearGradient(s.x, s.y - s.length, s.x, s.y);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.8, s.color);
+      grad.addColorStop(1, '#fff');
+      pCtx.strokeStyle = grad;
+      pCtx.lineWidth = 2;
+      pCtx.globalAlpha = s.alpha;
+      pCtx.moveTo(s.x, s.y - s.length);
+      pCtx.lineTo(s.x, s.y);
+      pCtx.stroke();
+      
+      // glowing head
+      pCtx.beginPath();
+      pCtx.arc(s.x, s.y, 2, 0, Math.PI*2);
+      pCtx.fillStyle = '#fff';
+      pCtx.shadowBlur = 10;
+      pCtx.shadowColor = s.color;
+      pCtx.fill();
+      pCtx.shadowBlur = 0;
+    });
+    requestAnimationFrame(drawProjectsBackground);
+  }
+  drawProjectsBackground();
+
+  // ===== FLOATING AI ICONS (About Section) =====
+  const floatingContainer = document.getElementById('floatingIcons');
+  const aiIcons = [
+    'fa-solid fa-brain', 'fa-solid fa-robot', 'fa-solid fa-microchip',
+    'fa-solid fa-network-wired', 'fa-solid fa-database', 'fa-solid fa-code',
+    'fa-solid fa-chart-line', 'fa-solid fa-gear', 'fa-solid fa-atom',
+    'fa-solid fa-laptop-code', 'fa-solid fa-terminal', 'fa-solid fa-cube'
+  ];
+  function spawnFloatingIcon() {
+    const icon = document.createElement('i');
+    const cls = aiIcons[Math.floor(Math.random() * aiIcons.length)];
+    cls.split(' ').forEach(c => icon.classList.add(c));
+    icon.style.left = Math.random() * 100 + '%';
+    icon.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+    icon.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    const iconColors = ['#06b6d4', '#ec4899', '#a855f7', '#10b981', '#fbbf24'];
+    icon.style.color = iconColors[Math.floor(Math.random() * iconColors.length)];
+    icon.style.opacity = '0';
+    floatingContainer.appendChild(icon);
+    setTimeout(() => icon.remove(), 14000);
+  }
+  setInterval(spawnFloatingIcon, 1200);
+  for (let i = 0; i < 8; i++) setTimeout(spawnFloatingIcon, i * 300);
+  // ===== GLOBAL AI/ML FLOATING BACKGROUND =====
+  const globalBg = document.getElementById('globalAiBg');
+  const aimlEmojis = [
+    '🤖','🧠','💡','🔬','⚙️','🖥️','📊','🔗',
+    '🦾','🧬','📡','🛸','🔮','🧮','💻','🎯',
+    '🌐','⚛️','🔧','📈','✨','🚀','💎','🎨'
+  ];
+
+  function spawnAiItem() {
+    const el = document.createElement('span');
+    el.textContent = aimlEmojis[Math.floor(Math.random() * aimlEmojis.length)];
+    el.style.fontSize = (Math.random() * 18 + 22) + 'px';
+    el.style.opacity = '0';
+    el.classList.add('ai-float-item');
+    el.style.left = Math.random() * 95 + '%';
+    el.style.animationDuration = (Math.random() * 18 + 14) + 's';
+    el.style.animationDelay = '0s';
+    globalBg.appendChild(el);
+    setTimeout(() => el.remove(), 35000);
+  }
+  // Spawn items
+  setInterval(spawnAiItem, 700);
+  for (let i = 0; i < 18; i++) spawnAiItem();
+
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
