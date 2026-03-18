@@ -53,20 +53,52 @@
   /* Make all main content sit above the bg */
   nav, section, footer { position:relative; z-index:1; }
 
-  /* ===== CURSOR TRAIL ===== */
+  /* ===== CUSTOM UNIQUE CURSOR ===== */
   .cursor-dot {
-    position:fixed; width:8px; height:8px;
-    background:var(--accent); border-radius:50%;
-    pointer-events:none; z-index:9999;
-    transition: transform 0.1s; mix-blend-mode:screen;
-    box-shadow: 0 0 12px var(--accent-glow);
+    position: fixed; top: 0; left: 0;
+    width: 8px; height: 8px; margin-top: -4px; margin-left: -4px;
+    background: #00e5ff; border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    box-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+    transition: width 0.2s, height 0.2s, margin 0.2s, background 0.2s, box-shadow 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-dot.hovering {
+    background: #ff2a5f;
+    box-shadow: 0 0 15px #ff2a5f, 0 0 30px #ff2a5f;
+    width: 14px; height: 14px; margin-top: -7px; margin-left: -7px;
   }
   .cursor-ring {
-    position:fixed; width:32px; height:32px;
-    border:2px solid var(--accent); border-radius:50%;
-    pointer-events:none; z-index:9998;
-    transition: transform 0.18s ease-out, width 0.2s, height 0.2s;
-    mix-blend-mode:screen;
+    position: fixed; top: 0; left: 0;
+    width: 32px; height: 32px; margin-top: -16px; margin-left: -16px;
+    pointer-events: none; z-index: 9998;
+    display: flex; justify-content: center; align-items: center;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring::before {
+    content: ''; position: absolute; width: 100%; height: 100%;
+    border: 2px dashed var(--accent); border-radius: 50%;
+    animation: cursorSpin 4s linear infinite;
+    box-shadow: 0 0 15px var(--accent-glow);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+  }
+  .cursor-ring::after {
+    content: ''; position: absolute; width: 160%; height: 160%;
+    border: 2px dotted #a855f7; border-radius: 50%;
+    animation: cursorSpin 6s linear infinite reverse;
+    opacity: 0.7;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
+  }
+  @keyframes cursorSpin { 100% { transform: rotate(360deg); } }
+  .cursor-ring.hovering::before {
+    transform: scale(1.8);
+    border-color: #00e5ff;
+    border-style: solid;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  }
+  .cursor-ring.hovering::after {
+    transform: scale(1.3);
+    border-color: #ff2a5f;
   }
 
   /* ===== NAVBAR ===== */
@@ -414,8 +446,293 @@
     0%,100%{opacity:1;transform:translateY(0);} 50%{opacity:0.6;transform:translateY(-5px);}
   }
 
-  /* ===== ABOUT ===== */
-  #about, #skills, #projects, #certificates { scroll-margin-top:10vh; }
+  /* ===== EDUCATION ===== */
+  #education {
+    padding: 60px 20px; color: white;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    position: relative; overflow: hidden;
+  }
+  .education-container { position:relative; z-index:1; max-width: 1150px; margin: 0 auto; }
+  .education-container h2 { font-size: 2rem; margin-bottom: 40px; text-align: center; }
+  
+  .timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: var(--accent);
+    top: 0; bottom: 0; left: 50%;
+    margin-left: -2px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  .timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+  }
+  .timeline-item.left { left: 0; }
+  .timeline-item.right { left: 50%; }
+  
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    right: -10px;
+    background-color: var(--bg-card);
+    border: 4px solid var(--accent);
+    top: 30px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 15px var(--accent-glow);
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+  }
+  .timeline-item.right::after { left: -10px; }
+  
+  .timeline-item:hover::after {
+    background-color: var(--accent);
+    transform: scale(1.3);
+    box-shadow: 0 0 25px var(--accent);
+  }
+  
+  .edu-card {
+    padding: 25px;
+    background: linear-gradient(180deg, rgba(25,25,25,0.98), #0e0e0e);
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid rgba(211,3,3,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+    overflow: hidden;
+  }
+  
+  /* Glass Sheen Effect */
+  .edu-card::before {
+    content: ''; position: absolute; top: 0; left: -150%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.7s ease;
+    pointer-events: none; z-index: 2;
+  }
+  
+  .edu-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(211, 3, 3, 0.6);
+    box-shadow: 0 15px 40px rgba(211, 3, 3, 0.3);
+  }
+  
+  .edu-card:hover::before {
+    left: 150%;
+  }
+  
+  .edu-date {
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(11, 0, 0, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(211, 38, 3, 0.3);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .edu-card h3 {
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  
+  .edu-card h4 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 500;
+    text-shadow: 0 0 5px rgba(211,3,3,0.2);
+  }
+  
+  .edu-location {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .edu-desc {
+    font-size: 0.95rem;
+    color: #d5d5d5;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+  }
+  
+  .edu-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .btn-edu {
+    padding: 8px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: 0.3s;
+    background: rgba(255,255,255,0.05);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+  }
+  
+  .btn-edu:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(211,3,3,0.2);
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  @media screen and (max-width: 768px) {
+    .timeline::after { left: 31px; }
+    .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+    .timeline-item.right { left: 0; }
+    .timeline-item::after { left: 21px; }
+    .timeline-item.right::after { left: 21px; }
+  }
+
+  /* ===== ABOUT & GENERAL SECTION HEADINGS ===== */
+  #about, #education, #achievements, #skills, #projects, #certificates { scroll-margin-top:10vh; }
+  
+  /* ===== ACHIEVEMENTS ===== */
+  #achievements {
+    padding: 60px 20px; color: white;
+    background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+    position: relative; overflow: hidden;
+  }
+  .achievements-container {
+    position: relative; z-index: 1;
+    max-width: 1150px; margin: 0 auto;
+  }
+  .achievements-container h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
+  
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+  
+  .achievement-card {
+    background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.95) 100%);
+    border: 1px solid rgba(211,3,3,0.15);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, border-color 0.4s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .achievement-card::before {
+    content:''; position:absolute; top:0; left:0; width:100%; height:4px;
+    background: linear-gradient(90deg, #00e5ff, var(--accent), #a855f7, #00e5ff);
+    background-size: 300% 100%;
+    opacity: 0.5; transition: 0.4s;
+  }
+  
+  @keyframes neonShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  
+  @keyframes rgbShadowPulse {
+    0% { box-shadow: 0 15px 35px rgba(0, 229, 255, 0.15); border-color: rgba(0, 229, 255, 0.4); }
+    50% { box-shadow: 0 15px 35px rgba(211, 3, 3, 0.15); border-color: rgba(211, 3, 3, 0.4); }
+    100% { box-shadow: 0 15px 35px rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.4); }
+  }
+  
+  .achievement-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    animation: rgbShadowPulse 3s infinite alternate;
+  }
+  
+  .achievement-card:hover::before { 
+    opacity: 1; 
+    height: 6px;
+    animation: neonShift 2s linear infinite; 
+  }
+  
+  .ach-slider-wrapper {
+    position: relative; width: 100%; height: 180px; margin-bottom: 20px;
+    border-radius: 10px; overflow: hidden;
+    background: rgba(255,255,255,0.03); border: 2px dashed rgba(255,255,255,0.1);
+    transition: 0.3s;
+  }
+  .achievement-card:hover .ach-slider-wrapper { border-color: rgba(211,3,3,0.4); }
+  .ach-slider {
+    display: flex; width: 100%; height: 100%; overflow-x: auto;
+    scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none;
+  }
+  .ach-slider::-webkit-scrollbar { display: none; }
+  .ach-slide {
+    flex: 0 0 100%; width: 100%; height: 100%; scroll-snap-align: center;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: #666; font-size: 0.9rem; position: relative; text-align: center;
+  }
+  .ach-slide img { position: absolute; top:0; left:0; width: 100%; height: 100%; object-fit: cover; z-index: 1; display: none; }
+  .ach-slide-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.6); color: white; border: none;
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+    z-index: 2; display: flex; justify-content: center; align-items: center;
+    opacity: 0; transition: 0.3s;
+  }
+  .ach-slider-wrapper:hover .ach-slide-btn { opacity: 1; }
+  .ach-slide-btn:hover { background: var(--accent); color: black; }
+  .ach-slide-btn.prev { left: 8px; }
+  .ach-slide-btn.next { right: 8px; }
+  
+  .achievement-card h3 {
+    font-size: 1.25rem; color: var(--text);
+    margin-bottom: 5px; font-weight: 700;
+  }
+  
+  .achievement-card h4 {
+    font-size: 0.95rem; color: #a855f7;
+    margin-bottom: 15px; font-weight: 500;
+  }
+  
+  .achievement-card p {
+    font-size: 0.95rem; color: #d5d5d5;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  
+  .ach-icon {
+    position: absolute; right: 25px; top: 35px;
+    font-size: 2rem; opacity: 0.1;
+    color: var(--accent);
+    transition: 0.4s;
+  }
+  .achievement-card:hover .ach-icon {
+    opacity: 0.4;
+    transform: scale(1.2) rotate(10deg);
+  }
 
   .about-section {
     padding:50px 20px; text-align:center; color:white;
@@ -846,6 +1163,8 @@
     <div class="links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#certificates">Certificates</a>
@@ -857,6 +1176,8 @@
     <div class="links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#achievements">Achievements</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#certificates">Certificates</a>
@@ -963,6 +1284,151 @@
     <p>I'm passionate about exploring how technology can solve real‑world problems, especially through AI and data-driven solutions. I enjoy designing intelligent applications, building clean web interfaces, and constantly learning new skills to grow as a developer.</p>
     <p>Apart from coding, I love playing cricket, following the latest tech trends, and experimenting with creative design projects.</p>
     <p>My goal is to keep learning, collaborate with like‑minded people, and contribute to innovative projects that can make a difference.</p>
+  </div>
+</section>
+
+<section id="education">
+  <div class="education-container" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="shimmer-heading">Education</h2>
+    
+    <div class="timeline">
+      <!-- Lovely Professional University -->
+      <div class="timeline-item left stagger-children" data-aos="fade-right" data-aos-duration="1200">
+        <div class="edu-card reveal-child">
+          <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Since Aug 2023</div>
+          <h3>Lovely Professional University</h3>
+          <h4>Computer Science and Engineering</h4>
+          <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Phagwara, Punjab</div>
+          <div class="edu-desc">
+            <strong>CGPA:</strong> <span style="color:var(--accent); font-weight:bold;">8.12</span>
+          </div>
+          <div class="edu-actions">
+            <a href="https://www.lpu.in/" target="_blank" class="btn-edu"><i class="fa-solid fa-graduation-cap"></i> Visit University</a>
+            <a href="#" class="btn-edu" onclick="event.preventDefault();"><i class="fa-solid fa-certificate"></i> View Certificate</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sri Chaitanya College -->
+      <div class="timeline-item right stagger-children" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="150">
+        <div class="edu-card reveal-child">
+          <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Apr 2021 - Mar 2023</div>
+          <h3>Sri Chaitanya College</h3>
+          <h4>Intermediate</h4>
+          <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Vijayawada, A.P</div>
+          <div class="edu-desc">
+            <strong>Percentage:</strong> <span style="color:var(--accent); font-weight:bold;">97%</span>
+          </div>
+          <div class="edu-actions">
+            <a href="https://srichaitanya.net/" target="_blank" class="btn-edu"><i class="fa-solid fa-building-columns"></i> Visit College</a>
+            <a href="https://drive.google.com/file/d/1Insx1vVjxKH7KCuFmTK5UFjfnambFTlQ/view?usp=sharing" target="_blank"  class="btn-edu" ><i class="fa-solid fa-certificate"></i> View Certificate</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sri Shantiniketan School -->
+      <div class="timeline-item left stagger-children" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="300">
+        <div class="edu-card reveal-child">
+          <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Apr 2020 - Mar 2021</div>
+          <h3>Sri Shantiniketan School</h3>
+          <h4>Matriculation</h4>
+          <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Nandyal, A.P</div>
+          <div class="edu-desc">
+            <strong>Percentage:</strong> <span style="color:var(--accent); font-weight:bold;">100%</span>
+          </div>
+          <div class="edu-actions">
+            <a href="https://srishantiniketancbse.com/" target="_blank" class="btn-edu"><i class="fa-solid fa-school"></i> Visit School</a>
+            <a href="https://drive.google.com/file/d/1nw9-kD29syX22VmOWo-7TWvziVLi6TiP/view?usp=sharing" target="_blank"  class="btn-edu" ><i class="fa-solid fa-certificate"></i> View Certificate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="achievements-container" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="shimmer-heading">My Achievements</h2>
+    
+    <div class="achievements-grid stagger-children">
+      <!-- HackerRank -->
+      <div class="achievement-card reveal-child" data-aos="fade-up" data-aos-delay="0">
+        <div class="ach-slider-wrapper">
+          <div class="ach-slider" id="ach-slide-1">
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 1 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/qq49zh33/1745651698998-e-1775692800-v-beta-t-Wo-T6cl4g-b-Lhla-Jg5Np-EELX5i4uv-W6Cp8NK8XVU6x-Y.jpg" alt="HackerRank Badge 1" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 2 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/x86F8sYc/1742831137841-e-1775692800-v-beta-t-zen-WBNRPra-Vj9Azo-NDlzer-s-UMLBq-RC3Hs1qc-G4cz-YI.jpg" alt="HackerRank Badge 2" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 3 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/RC1m49HY/1749358874154-e-1775692800-v-beta-t-HOEBNp2qf4hl-Syw-Mk-Eu-Dw-Ko4b-L0znur-M816Ox9Seh-HU.jpg" alt="HackerRank Badge 3" onload="this.style.display='block';">
+            </div>
+          </div>
+          <button class="ach-slide-btn prev" aria-label="Previous" onclick="slideMedia('ach-slide-1', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="ach-slide-btn next" aria-label="Next" onclick="slideMedia('ach-slide-1', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <i class="fa-brands fa-hackerrank ach-icon"></i>
+        <h3>HackerRank Programming Excellence</h3>
+        <h4>Profile / Badges</h4>
+        <p>Achieved Gold badges and 5-star ratings in Java, Python, and C on HackerRank by consistently solving advanced coding challenges and participating in competitive problem-solving tracks.</p>
+      </div>
+      
+      <!-- Hackathon -->
+      <div class="achievement-card reveal-child" data-aos="fade-up" data-aos-delay="150">
+        <div class="ach-slider-wrapper">
+          <div class="ach-slider" id="ach-slide-2">
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 1 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/wjhSzQZH/code-a-hunt.png" alt="Hackathon Qual 1" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 2 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/bYkMkTYr/smart-india-hackathon-3-scaled.jpg" alt="Hackathon Qual 2" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 3 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/FFwS5y0c/Chat-GPT-Image-Mar-18-2026-11-06-43-AM.png" alt="Hackathon Qual 3" onload="this.style.display='block';">
+            </div>
+          </div>
+          <button class="ach-slide-btn prev" aria-label="Previous" onclick="slideMedia('ach-slide-2', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="ach-slide-btn next" aria-label="Next" onclick="slideMedia('ach-slide-2', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <i class="fa-solid fa-trophy ach-icon"></i>
+        <h3>Code-A-Hunt 24 Hour Hackathon</h3>
+        <h4>Certificate of Qualification</h4>
+        <p>Participated in the Code-A-Hunt 24-hour Hackathon organized by Coding Blocks LPU and successfully qualified for Round 2 out of 3 rounds, demonstrating strong coding and problem-solving skills.</p>
+      </div>
+      
+      <!-- LeetCode -->
+      <div class="achievement-card reveal-child" data-aos="fade-up" data-aos-delay="300">
+        <div class="ach-slider-wrapper">
+          <div class="ach-slider" id="ach-slide-3">
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 1 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/9MKYnvWC/1773160872885-e-1775692800-v-beta-t-m-Hn-ZVNDo1h-I41wsc4-vb1m-Cs-XT28q8-u-G7La9SBus-E.jpg" alt="LeetCode Streak 1" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 2 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/Pxg14Y45/Screenshot-2026-03-18-111625.png" alt="LeetCode Streak 2" onload="this.style.display='block';">
+            </div>
+            <div class="ach-slide">
+              <span><i class="fa-regular fa-image" style="font-size:1.5rem; display:block; margin-bottom:8px;"></i> Media 3 Placeholder</span>
+              <img class="load-img" src="https://i.postimg.cc/bJBtvbMF/Screenshot-2026-03-18-111605.png" alt="LeetCode Streak 3" onload="this.style.display='block';">
+            </div>
+          </div>
+          <button class="ach-slide-btn prev" aria-label="Previous" onclick="slideMedia('ach-slide-3', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <button class="ach-slide-btn next" aria-label="Next" onclick="slideMedia('ach-slide-3', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <i class="fa-solid fa-fire ach-icon"></i>
+        <h3>Completed 400+ Days LeetCode Streak</h3>
+        <h4>Profile Record</h4>
+        <p>Maintained high consistency and problem-solving discipline by solving complex algorithmic and data structure challenges daily on LeetCode for over 400 consecutive days.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1146,19 +1612,25 @@
   let mouseX=0,mouseY=0,ringX=0,ringY=0;
   document.addEventListener('mousemove',e=>{
     mouseX=e.clientX; mouseY=e.clientY;
-    dot.style.transform=`translate(${mouseX-4}px,${mouseY-4}px)`;
+    dot.style.transform=`translate(${mouseX}px,${mouseY}px)`;
   });
   function animateRing(){
     ringX+=(mouseX-ringX)*0.15; ringY+=(mouseY-ringY)*0.15;
-    ring.style.transform=`translate(${ringX-16}px,${ringY-16}px)`;
+    ring.style.transform=`translate(${ringX}px,${ringY}px)`;
     requestAnimationFrame(animateRing);
   }
   animateRing();
 
   // Grow cursor on hoverable elements
-  document.querySelectorAll('a,button,.project-card,.certificate').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(211,3,3,0.5)';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgb(211,3,3)';});
+  document.querySelectorAll('a, button, .project-card, .certificate, .achievement-card, .edu-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{
+      ring.classList.add('hovering');
+      dot.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave',()=>{
+      ring.classList.remove('hovering');
+      dot.classList.remove('hovering');
+    });
   });
 
   // ===== NEURAL COSMOS BACKGROUND =====
@@ -2180,6 +2652,14 @@
   // Spawn items
   setInterval(spawnAiItem, 700);
   for (let i = 0; i < 18; i++) spawnAiItem();
+
+  // ===== SLIDER FUNCTION =====
+  window.slideMedia = function(sliderId, direction) {
+    const slider = document.getElementById(sliderId);
+    if(slider) {
+      slider.scrollBy({ left: slider.offsetWidth * direction, behavior: 'smooth' });
+    }
+  };
 
 </script>
 </body>
