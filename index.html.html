@@ -30,7 +30,7 @@
             --text: #222;
             --text-dim: #666;
         }
-        
+
         body.light-mode section {
             background-color: var(--bg-dark) !important;
             background-image: none !important;
@@ -44,7 +44,16 @@
         body.light-mode .certificate {
             background: var(--bg-card);
             border-color: #ddd;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .edu-card-back {
+            background: #fff5f5;
+            border-color: rgba(211, 3, 3, 0.4);
+        }
+
+        body.light-mode .edu-cert-no-img {
+            color: #555;
         }
 
         body.light-mode .edu-desc,
@@ -94,7 +103,7 @@
         body.light-mode .btn-edu {
             color: #222 !important;
         }
-        
+
         body.light-mode .btn-code,
         body.light-mode .btn-edu {
             background: #e9ecef !important;
@@ -116,14 +125,14 @@
             transition: background 0.4s ease, border-color 0.4s ease;
             text-decoration: none;
             overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
             border: 2px solid #333 !important;
         }
 
         body.light-mode .theme-switch {
             background: #e9ecef !important;
             border-color: #d1d5db !important;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .switch-handle {
@@ -141,7 +150,7 @@
             color: #000;
             font-size: 10px;
             z-index: 2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         body.light-mode .switch-handle {
@@ -166,7 +175,7 @@
 
         body.light-mode .dropdown {
             background: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1) !important;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1) !important;
         }
 
         body.light-mode footer {
@@ -263,10 +272,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 8px;
-            height: 8px;
-            margin-top: -4px;
-            margin-left: -4px;
+            width: 4px;
+            height: 4px;
+            margin-top: -2px;
+            margin-left: -2px;
             background: #00e5ff;
             border-radius: 50%;
             pointer-events: none;
@@ -279,20 +288,20 @@
         .cursor-dot.hovering {
             background: #ff2a5f;
             box-shadow: 0 0 15px #ff2a5f, 0 0 30px #ff2a5f;
-            width: 14px;
-            height: 14px;
-            margin-top: -7px;
-            margin-left: -7px;
+            width: 7px;
+            height: 7px;
+            margin-top: -3.5px;
+            margin-left: -3.5px;
         }
 
         .cursor-ring {
             position: fixed;
             top: 0;
             left: 0;
-            width: 32px;
-            height: 32px;
-            margin-top: -16px;
-            margin-left: -16px;
+            width: 16px;
+            height: 16px;
+            margin-top: -8px;
+            margin-left: -8px;
             pointer-events: none;
             z-index: 9998;
             display: flex;
@@ -1178,6 +1187,110 @@
             box-shadow: 0 0 25px var(--accent);
         }
 
+        /* ===== EDU CARD FLIP CONTAINER ===== */
+        .edu-flip-container {
+            perspective: 1200px;
+            width: 100%;
+        }
+
+        .edu-card-inner {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .edu-flip-container.flipped .edu-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .edu-card-front,
+        .edu-card-back {
+            border-radius: 14px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .edu-card-front {
+            width: 100%;
+        }
+
+        .edu-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotateY(180deg);
+            background: linear-gradient(180deg, rgba(18, 0, 0, 0.98), #0e0e0e);
+            border: 1px solid rgba(211, 3, 3, 0.5);
+            box-shadow: 0 8px 25px rgba(211, 3, 3, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .edu-cert-img {
+            width: 100%;
+            max-height: calc(100% - 50px);
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(211, 3, 3, 0.3);
+            box-shadow: 0 4px 20px rgba(211, 3, 3, 0.2);
+        }
+
+        .edu-cert-no-img {
+            color: #aaa;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .edu-cert-no-img i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(211, 3, 3, 0.5);
+        }
+
+        .edu-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(211, 3, 3, 0.8);
+            border: none;
+            color: #fff;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 5;
+            line-height: 1;
+        }
+
+        .edu-close-btn:hover {
+            background: var(--accent);
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        .edu-back-label {
+            font-size: 0.75rem;
+            color: rgba(211, 3, 3, 0.8);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
         .edu-card {
             padding: 25px;
             background: linear-gradient(180deg, rgba(25, 25, 25, 0.98), #0e0e0e);
@@ -1204,13 +1317,13 @@
             z-index: 2;
         }
 
-        .edu-card:hover {
+        .edu-flip-container:not(.flipped) .edu-card:hover {
             transform: translateY(-8px) scale(1.02);
             border-color: rgba(211, 3, 3, 0.6);
             box-shadow: 0 15px 40px rgba(211, 3, 3, 0.3);
         }
 
-        .edu-card:hover::before {
+        .edu-flip-container:not(.flipped) .edu-card:hover::before {
             left: 150%;
         }
 
@@ -1319,7 +1432,8 @@
         #achievements,
         #skills,
         #projects,
-        #certificates {
+        #certificates,
+        #contact {
             scroll-margin-top: 10vh;
         }
 
@@ -2186,6 +2300,348 @@
             box-shadow: 0 0 25px var(--accent-glow);
         }
 
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            padding: 60px 20px;
+            color: white;
+            background: linear-gradient(rgba(5, 0, 26, 0.85), rgba(10, 0, 32, 0.85)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(211, 3, 3, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .contact-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-wrapper h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-tagline {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(211, 3, 3, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated top border gradient */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #d30303, #a855f7, #00e5ff, #a855f7, #d30303);
+            background-size: 300% 100%;
+            animation: contactBorderAnim 4s linear infinite;
+        }
+
+        @keyframes contactBorderAnim {
+            0% {
+                background-position: 0% 0;
+            }
+
+            100% {
+                background-position: 300% 0;
+            }
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Contact Info side */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(211, 3, 3, 0.3);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            text-decoration: none;
+            color: #ddd;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background: rgba(211, 3, 3, 0.1);
+            border-color: rgba(211, 3, 3, 0.4);
+            color: #fff;
+            transform: translateX(6px);
+            box-shadow: 0 4px 20px rgba(211, 3, 3, 0.15);
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(211, 3, 3, 0.12);
+            border: 1px solid rgba(211, 3, 3, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .contact-item:hover .contact-item-icon {
+            background: var(--accent);
+            color: #000;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .contact-item-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-item-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        /* Form side */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-form-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(211, 3, 3, 0.3);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+            resize: none;
+        }
+
+        .contact-input::placeholder {
+            color: #555;
+        }
+
+        .contact-input:focus {
+            border-color: rgba(211, 3, 3, 0.5);
+            box-shadow: 0 0 0 3px rgba(211, 3, 3, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-send-btn {
+            padding: 13px 24px;
+            background: linear-gradient(135deg, var(--accent), #ff2a5f);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            animation: contactBtnPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes contactBtnPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(211, 3, 3, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(211, 3, 3, 0.6), 0 0 50px rgba(211, 3, 3, 0.2);
+            }
+        }
+
+        .contact-send-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: linear-gradient(135deg, #ff2a5f, var(--accent));
+            box-shadow: 0 0 35px rgba(211, 3, 3, 0.5);
+            animation: none;
+        }
+
+        .contact-send-btn:active {
+            transform: scale(0.97);
+        }
+
+        .contact-success {
+            display: none;
+            padding: 14px 20px;
+            background: rgba(0, 200, 83, 0.1);
+            border: 1px solid rgba(0, 200, 83, 0.3);
+            border-radius: 12px;
+            color: #00c853;
+            font-size: 0.9rem;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 680px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .contact-card {
+                padding: 24px 18px;
+            }
+        }
+
+        body.light-mode #contact {
+            background: #f0f2f5;
+        }
+
+        body.light-mode .contact-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(211, 3, 3, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .contact-input {
+            background: #f8f9fa;
+            border-color: #ddd;
+            color: #222;
+        }
+
+        body.light-mode .contact-input::placeholder {
+            color: #aaa;
+        }
+
+        body.light-mode .contact-item {
+            background: #f8f9fa;
+            border-color: #e0e0e0;
+            color: #333;
+        }
+
+        body.light-mode .contact-tagline {
+            color: #666;
+        }
+
+        /* ===== HOME CONTACT BUTTON ===== */
+        .btn-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 24px;
+            height: 6vh;
+            min-height: 44px;
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 5px;
+            font-size: 100%;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s, color 0.3s, background 0.3s;
+        }
+
+        .btn-contact:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.08);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .home-btn-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        body.light-mode .btn-contact {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         /* ===== FOOTER ===== */
         footer {
             background: linear-gradient(rgba(5, 0, 26, 0.9), rgba(0, 0, 0, 0.95)), url('https://res.cloudinary.com/do3wub817/image/upload/v1756131927/video_20250825_193848_edit-ezgif.com-video-to-gif-converter_syhcvw.gif') center/cover no-repeat fixed;
@@ -2545,6 +3001,7 @@
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#certificates">Certificates</a>
+                <a href="#contact">Contact</a>
                 <div id="theme-toggle" class="theme-switch" title="Toggle Light/Dark Mode">
                     <div class="switch-handle"><i class="fa-solid fa-moon"></i></div>
                     <span class="switch-text">NIGHT</span>
@@ -2562,6 +3019,7 @@
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#certificates">Certificates</a>
+                <a href="#contact">Contact</a>
                 <div id="theme-toggle-mobile" class="theme-switch" title="Toggle Light/Dark Mode">
                     <div class="switch-handle"><i class="fa-solid fa-moon"></i></div>
                     <span class="switch-text">NIGHT</span>
@@ -2698,20 +3156,40 @@
             <div class="timeline">
                 <!-- Lovely Professional University -->
                 <div class="timeline-item left stagger-children" data-aos="fade-right" data-aos-duration="1200">
-                    <div class="edu-card reveal-child">
-                        <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Since
-                            Aug 2023</div>
-                        <h3>Lovely Professional University</h3>
-                        <h4>Computer Science and Engineering</h4>
-                        <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Phagwara, Punjab</div>
-                        <div class="edu-desc">
-                            <strong>CGPA:</strong> <span style="color:var(--accent); font-weight:bold;">8.12</span>
-                        </div>
-                        <div class="edu-actions">
-                            <a href="https://www.lpu.in/" target="_blank" class="btn-edu"><i
-                                    class="fa-solid fa-graduation-cap"></i> Visit University</a>
-                            <a href="#" class="btn-edu" onclick="event.preventDefault();"><i
-                                    class="fa-solid fa-certificate"></i> View Certificate</a>
+                    <div class="edu-flip-container" id="edu-flip-0">
+                        <div class="edu-card-inner">
+                            <!-- FRONT -->
+                            <div class="edu-card-front">
+                                <div class="edu-card reveal-child">
+                                    <div class="edu-date"><i class="fa-regular fa-calendar"
+                                            style="margin-right: 5px;"></i> Since Aug 2023</div>
+                                    <h3>Lovely Professional University</h3>
+                                    <h4>Computer Science and Engineering</h4>
+                                    <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Phagwara, Punjab
+                                    </div>
+                                    <div class="edu-desc">
+                                        <strong>CGPA:</strong> <span
+                                            style="color:var(--accent); font-weight:bold;">8.12</span>
+                                    </div>
+                                    <div class="edu-actions">
+                                        <a href="https://www.lpu.in/" target="_blank" class="btn-edu"><i
+                                                class="fa-solid fa-graduation-cap"></i> Visit University</a>
+                                        <button class="btn-edu" onclick="flipEduCard('edu-flip-0')" id="btn-cert-0"><i
+                                                class="fa-solid fa-certificate"></i> View Certificate</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- BACK -->
+                            <div class="edu-card-back">
+                                <button class="edu-close-btn" onclick="flipEduCard('edu-flip-0')" title="Close"><i
+                                        class="fa-solid fa-xmark"></i></button>
+                                <div class="edu-back-label"><i class="fa-solid fa-certificate"
+                                        style="margin-right:4px;"></i>Certificate</div>
+                                <div class="edu-cert-no-img">
+                                    <i class="fa-regular fa-hourglass-half"></i>
+                                    Certificate will be uploaded after completion of degree
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2719,21 +3197,39 @@
                 <!-- Sri Chaitanya College -->
                 <div class="timeline-item right stagger-children" data-aos="fade-left" data-aos-duration="1200"
                     data-aos-delay="150">
-                    <div class="edu-card reveal-child">
-                        <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Apr 2021
-                            - Mar 2023</div>
-                        <h3>Sri Chaitanya College</h3>
-                        <h4>Intermediate</h4>
-                        <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Vijayawada, A.P</div>
-                        <div class="edu-desc">
-                            <strong>Percentage:</strong> <span style="color:var(--accent); font-weight:bold;">97%</span>
-                        </div>
-                        <div class="edu-actions">
-                            <a href="https://srichaitanya.net/" target="_blank" class="btn-edu"><i
-                                    class="fa-solid fa-building-columns"></i> Visit College</a>
-                            <a href="https://drive.google.com/file/d/1Insx1vVjxKH7KCuFmTK5UFjfnambFTlQ/view?usp=sharing"
-                                target="_blank" class="btn-edu"><i class="fa-solid fa-certificate"></i> View
-                                Certificate</a>
+                    <div class="edu-flip-container" id="edu-flip-1">
+                        <div class="edu-card-inner">
+                            <!-- FRONT -->
+                            <div class="edu-card-front">
+                                <div class="edu-card reveal-child">
+                                    <div class="edu-date"><i class="fa-regular fa-calendar"
+                                            style="margin-right: 5px;"></i> Apr 2021 - Mar 2023</div>
+                                    <h3>Sri Chaitanya College</h3>
+                                    <h4>Intermediate</h4>
+                                    <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Vijayawada, A.P
+                                    </div>
+                                    <div class="edu-desc">
+                                        <strong>Percentage:</strong> <span
+                                            style="color:var(--accent); font-weight:bold;">97%</span>
+                                    </div>
+                                    <div class="edu-actions">
+                                        <a href="https://srichaitanya.net/" target="_blank" class="btn-edu"><i
+                                                class="fa-solid fa-building-columns"></i> Visit College</a>
+                                        <button class="btn-edu" onclick="flipEduCard('edu-flip-1')" id="btn-cert-1"><i
+                                                class="fa-solid fa-certificate"></i> View Certificate</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- BACK -->
+                            <div class="edu-card-back">
+                                <button class="edu-close-btn" onclick="flipEduCard('edu-flip-1')" title="Close"><i
+                                        class="fa-solid fa-xmark"></i></button>
+                                <div class="edu-back-label"><i class="fa-solid fa-certificate"
+                                        style="margin-right:4px;"></i>Certificate</div>
+                                <img class="edu-cert-img"
+                                    src="https://i.postimg.cc/7LyPd2hr/Whats-App-Image-2026-03-18-at-10-26-22-AM.jpg"
+                                    alt="Sri Chaitanya College Certificate">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2741,22 +3237,39 @@
                 <!-- Sri Shantiniketan School -->
                 <div class="timeline-item left stagger-children" data-aos="fade-right" data-aos-duration="1200"
                     data-aos-delay="300">
-                    <div class="edu-card reveal-child">
-                        <div class="edu-date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> Apr 2020
-                            - Mar 2021</div>
-                        <h3>Sri Shantiniketan School</h3>
-                        <h4>Matriculation</h4>
-                        <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Nandyal, A.P</div>
-                        <div class="edu-desc">
-                            <strong>Percentage:</strong> <span
-                                style="color:var(--accent); font-weight:bold;">100%</span>
-                        </div>
-                        <div class="edu-actions">
-                            <a href="https://srishantiniketancbse.com/" target="_blank" class="btn-edu"><i
-                                    class="fa-solid fa-school"></i> Visit School</a>
-                            <a href="https://drive.google.com/file/d/1nw9-kD29syX22VmOWo-7TWvziVLi6TiP/view?usp=sharing"
-                                target="_blank" class="btn-edu"><i class="fa-solid fa-certificate"></i> View
-                                Certificate</a>
+                    <div class="edu-flip-container" id="edu-flip-2">
+                        <div class="edu-card-inner">
+                            <!-- FRONT -->
+                            <div class="edu-card-front">
+                                <div class="edu-card reveal-child">
+                                    <div class="edu-date"><i class="fa-regular fa-calendar"
+                                            style="margin-right: 5px;"></i> Apr 2020 - Mar 2021</div>
+                                    <h3>Sri Shantiniketan School</h3>
+                                    <h4>Matriculation</h4>
+                                    <div class="edu-location"><i class="fa-solid fa-location-dot"></i> Nandyal, A.P
+                                    </div>
+                                    <div class="edu-desc">
+                                        <strong>Percentage:</strong> <span
+                                            style="color:var(--accent); font-weight:bold;">100%</span>
+                                    </div>
+                                    <div class="edu-actions">
+                                        <a href="https://srishantiniketancbse.com/" target="_blank" class="btn-edu"><i
+                                                class="fa-solid fa-school"></i> Visit School</a>
+                                        <button class="btn-edu" onclick="flipEduCard('edu-flip-2')" id="btn-cert-2"><i
+                                                class="fa-solid fa-certificate"></i> View Certificate</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- BACK -->
+                            <div class="edu-card-back">
+                                <button class="edu-close-btn" onclick="flipEduCard('edu-flip-2')" title="Close"><i
+                                        class="fa-solid fa-xmark"></i></button>
+                                <div class="edu-back-label"><i class="fa-solid fa-certificate"
+                                        style="margin-right:4px;"></i>Certificate</div>
+                                <img class="edu-cert-img"
+                                    src="https://i.postimg.cc/d083V9pF/Whats-App-Image-2026-03-18-at-10-26-22-AM-(1).jpg"
+                                    alt="Sri Shantiniketan School Certificate">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3051,7 +3564,8 @@
                     <div class="actions">
                         <a href="https://github.com/nithin4545L/Crop-Yield-Prediction-Project" target="_blank"
                             class="btn-pill btn-code"><i class="fa-brands fa-github"></i> Code</a>
-                        <a href="https://nithinkumarreddy45.github.io/Crop-Yield-Prediction-Project/" target="_blank" class="btn-pill btn-code"
+                        <a href="https://nithinkumarreddy45.github.io/Crop-Yield-Prediction-Project/" target="_blank"
+                            class="btn-pill btn-code"
                             style="background: var(--accent); color: #000; border-color: var(--accent);"><i
                                 class="fa-solid fa-link"></i> View Live Page</a>
                     </div>
@@ -3108,18 +3622,89 @@
         </div>
     </section>
 
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" data-aos="fade-up" data-aos-duration="1500">
+        <!-- Glowing orbs -->
+        <div class="contact-orb contact-orb-1"></div>
+        <div class="contact-orb contact-orb-2"></div>
+        <div class="contact-orb contact-orb-3"></div>
+
+        <div class="contact-wrapper">
+            <h2 class="shimmer-heading">Get In Touch</h2>
+            <p class="contact-tagline">Have an idea, opportunity, or just want to say hi? I'd love to hear from you.</p>
+
+            <div class="contact-card">
+                <div class="contact-grid">
+
+                    <!-- Info Side -->
+                    <div class="contact-info">
+                        <div class="contact-info-title"><i class="fa-solid fa-address-card"
+                                style="margin-right:6px;"></i>Contact Info</div>
+
+                        <a href="mailto:nithinkumarreddyn@gmail.com" class="contact-item" target="_blank">
+                            <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-item-text">
+                                <span class="contact-item-label">Email</span>
+                                <span>nithinkumarreddyn@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" class="contact-item"
+                            target="_blank">
+                            <div class="contact-item-icon"><i class="fa-brands fa-linkedin"></i></div>
+                            <div class="contact-item-text">
+                                <span class="contact-item-label">LinkedIn</span>
+                                <span>Nithin Kumar Reddy N</span>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/nithinkumarreddy45" class="contact-item" target="_blank">
+                            <div class="contact-item-icon"><i class="fa-brands fa-github"></i></div>
+                            <div class="contact-item-text">
+                                <span class="contact-item-label">GitHub</span>
+                                <span>nithinkumarreddy45</span>
+                            </div>
+                        </a>
+
+                        <a href="https://x.com/NithinL45" class="contact-item" target="_blank">
+                            <div class="contact-item-icon"><i class="fa-brands fa-x-twitter"></i></div>
+                            <div class="contact-item-text">
+                                <span class="contact-item-label">X / Twitter</span>
+                                <span>@NithinL45</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Message Side -->
+                    <div class="contact-form">
+                        <div class="contact-form-title"><i class="fa-solid fa-message"
+                                style="margin-right:6px;"></i>Send a Message</div>
+                        <input type="text" id="contact-name" class="contact-input" placeholder="Your Name"
+                            autocomplete="name">
+                        <input type="email" id="contact-email" class="contact-input" placeholder="Your Email"
+                            autocomplete="email">
+                        <textarea id="contact-msg" class="contact-input" rows="4"
+                            placeholder="Your message..."></textarea>
+                        <button class="contact-send-btn" onclick="handleContactSend()">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                        <div class="contact-success" id="contactSuccess">
+                            <i class="fa-solid fa-circle-check" style="margin-right:6px;"></i>Message sent! I'll get
+                            back to you soon.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="footer-container">
             <h3 class="footer-name">NK<span>R😎</span></h3>
-            <div class="footer-social-links" aria-label="Footer social links">
-                <a href="mailto:nithinkumarreddyn@gmail.com" target="_blank" title="Email"><i
-                        class="fa-solid fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/nithin-kumar-reddy-n-696880293/" target="_blank"
-                    title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/nithinkumarreddy45" target="_blank" title="GitHub"><i
-                        class="fa-brands fa-github"></i></a>
-                <a href="https://x.com/NithinL45" target="_blank" title="X / Twitter"><i
-                        class="fa-brands fa-x-twitter"></i></a>
+            <div class="footer-hero-img" style="margin: 15px 0 20px;">
+                <img src="https://i.postimg.cc/pXLYgm70/In-Shot-20260321-003426385.png" alt="Footer Hero Image"
+                    style="max-height: 180px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));" />
             </div>
             <p class="footer-quote">"💡 Small steps every day lead to big change."</p>
             <p class="footer-thankyou">Thank you for visiting my portfolio!</p>
@@ -3131,6 +3716,40 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ offset: 0, once: true });
+
+        // ===== EDUCATION CARD FLIP =====
+        function flipEduCard(id) {
+            const container = document.getElementById(id);
+            if (!container) return;
+            const isFlipping = !container.classList.contains('flipped');
+            container.classList.toggle('flipped');
+            // Sync back height to front height so content isn't clipped
+            const front = container.querySelector('.edu-card-front');
+            const back = container.querySelector('.edu-card-back');
+            if (isFlipping && front && back) {
+                back.style.height = front.offsetHeight + 'px';
+            }
+        }
+
+        // ===== CONTACT FORM =====
+        function handleContactSend() {
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const msg = document.getElementById('contact-msg').value.trim();
+            if (!name || !email || !msg) {
+                alert('Please fill in all fields before sending.');
+                return;
+            }
+            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+            window.location.href = `mailto:nithinkumarreddyn@gmail.com?subject=${subject}&body=${body}`;
+            const successEl = document.getElementById('contactSuccess');
+            successEl.style.display = 'block';
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-email').value = '';
+            document.getElementById('contact-msg').value = '';
+            setTimeout(() => { successEl.style.display = 'none'; }, 5000);
+        }
 
         // ===== CUSTOM CURSOR =====
         const dot = document.getElementById('cursorDot');
@@ -3162,7 +3781,7 @@
         // ===== THEME TOGGLE =====
         const themeBtn = document.getElementById('theme-toggle');
         const themeBtnMobile = document.getElementById('theme-toggle-mobile');
-        
+
         function updateThemeButtons(isLight) {
             const handleHtml = isLight ? '<i class="fa-regular fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             const textHtml = isLight ? 'DAY' : 'NIGHT';
@@ -3178,10 +3797,10 @@
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
             updateThemeButtons(isLight);
         }
-        
+
         if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
         if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
-        
+
         // Check saved theme
         if (localStorage.getItem('theme') === 'light') {
             document.body.classList.add('light-mode');
